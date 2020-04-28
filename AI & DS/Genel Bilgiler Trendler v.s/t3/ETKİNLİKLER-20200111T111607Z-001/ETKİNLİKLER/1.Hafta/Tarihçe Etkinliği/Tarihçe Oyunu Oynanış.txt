@@ -1,0 +1,15 @@
+Eğitmen tahtaya altta yazan tarihleri yazar, öğrencileri 2'şerli gruplara ayrılır ve gruplara 10'ar tane post-it verir.
+Eğitmen tahtaya Tarihce.png dosyasını yansıtır.
+Öğrencilerden kağıtlara olaylara yazıp hangi tarihte olduklarını tahmin etmelerini ve kağıdı tahtada yazan tarihin altına yapıştırmalarını ister.
+Bu işlemler yapıldıktan sonra öğretmen tahtadan rastgele kağıtları alıp doğruluklarını kontrol eder ve TarihceSonuc.png dosyasını yansıtır ve olaylardan bahseder.
+Etkinliğin sonunda TarihceSonuc dosyasının çıktısını sınıfa asar.
+1308
+1763
+1950
+1952
+1955
+1956
+1997
+2012
+2016
+2018

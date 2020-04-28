@@ -1,0 +1,361 @@
+listing 1
+// Implement the Pythagorean Theorem. 
+  
+using System;  
+  
+class Pythagorean {     
+  public static void Main() {     
+    double s1; 
+    double s2; 
+    double hypot; 
+    string str; 
+ 
+    Console.WriteLine("Enter length of first side: "); 
+    str = Console.ReadLine(); 
+    s1 = Double.Parse(str); 
+ 
+    Console.WriteLine("Enter length of second side: "); 
+    str = Console.ReadLine(); 
+    s2 = Double.Parse(str); 
+ 
+    hypot = Math.Sqrt(s1*s1 + s2*s2); 
+  
+    Console.WriteLine("Hypotenuse is " + hypot); 
+  }     
+}
+
+listing 2
+/* Compute the initial investment needed to attain 
+   a known future value given annual rate of return 
+   and the time period in years. */ 
+  
+using System;  
+  
+class IntialInvestment {     
+  public static void Main() {     
+    decimal InitInvest; // initial investment 
+    decimal FutVal;     // future value 
+ 
+    double NumYears;    // number of years  
+    double IntRate;     // annual rate of return as a decimal 
+  
+    string str;  
+ 
+    Console.Write("Enter future value: "); 
+    str = Console.ReadLine(); 
+    try {  
+      FutVal = Decimal.Parse(str);  
+    } catch(FormatException exc) {  
+      Console.WriteLine(exc.Message);  
+      return;  
+    }  
+ 
+    Console.Write("Enter interest rate (such as 0.085): "); 
+    str = Console.ReadLine(); 
+    try {  
+      IntRate = Double.Parse(str);  
+    } catch(FormatException exc) {  
+      Console.WriteLine(exc.Message);  
+      return;  
+    }  
+ 
+    Console.Write("Enter number of years: "); 
+    str = Console.ReadLine(); 
+    try {  
+      NumYears = Double.Parse(str);  
+    } catch(FormatException exc) {  
+      Console.WriteLine(exc.Message);  
+      return;  
+    }  
+ 
+    InitInvest = FutVal / (decimal) Math.Pow(IntRate+1.0, NumYears);  
+  
+    Console.WriteLine("Initial investment required: {0:C}", 
+                      InitInvest);  
+  }     
+} 
+
+
+listing 3
+// Manually create a decimal number. 
+  
+using System;  
+  
+class CreateDec {     
+  public static void Main() {     
+    decimal d = new decimal(12345, 0, 0, false, 2); 
+ 
+    Console.WriteLine(d); 
+  }     
+}
+
+listing 4
+// Demonstrate several Char methods. 
+ 
+using System;  
+  
+class CharDemo {     
+  public static void Main() {     
+    string str = "This is a test. $23"; 
+    int i; 
+ 
+    for(i=0; i < str.Length; i++) { 
+      Console.Write(str[i] + " is"); 
+      if(Char.IsDigit(str[i])) 
+        Console.Write(" digit"); 
+      if(Char.IsLetter(str[i])) 
+        Console.Write(" letter"); 
+      if(Char.IsLower(str[i])) 
+        Console.Write(" lowercase"); 
+      if(Char.IsUpper(str[i])) 
+        Console.Write(" uppercase"); 
+      if(Char.IsSymbol(str[i])) 
+        Console.Write(" symbol"); 
+      if(Char.IsSeparator(str[i])) 
+        Console.Write(" separator"); 
+      if(Char.IsWhiteSpace(str[i])) 
+        Console.Write(" whitespace"); 
+      if(Char.IsPunctuation(str[i])) 
+        Console.Write(" punctuation"); 
+ 
+      Console.WriteLine(); 
+    } 
+ 
+    Console.WriteLine("Original: " + str); 
+ 
+    // Convert to upper case.    
+    string newstr = ""; 
+    for(i=0; i < str.Length; i++) 
+      newstr += Char.ToUpper(str[i]); 
+  
+    Console.WriteLine("Uppercased: " + newstr); 
+ 
+  }     
+}
+
+listing 5
+// Sort an array and search for a value. 
+ 
+using System;  
+  
+class SortDemo {     
+  public static void Main() {     
+    int[] nums = { 5, 4, 6, 3, 14, 9, 8, 17, 1, 24, -1, 0 }; 
+   
+    // Display original order. 
+    Console.Write("Original order: "); 
+    foreach(int i in nums)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+    // Sort the array. 
+    Array.Sort(nums); 
+ 
+    // Display sorted order. 
+    Console.Write("Sorted order:   "); 
+    foreach(int i in nums)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+ 
+    // Search for 14. 
+    int idx = Array.BinarySearch(nums, 14); 
+ 
+    Console.WriteLine("Index of 14 is " + idx); 
+  }     
+}
+
+listing 6
+// Sort and search an array of objects. 
+ 
+using System;  
+ 
+class MyClass : IComparable { 
+  public int i; 
+  
+  public MyClass(int x) { i = x; } 
+ 
+  // Implement IComparable. 
+  public int CompareTo(object v) { 
+    return i - ((MyClass)v).i; 
+  } 
+} 
+  
+class SortDemo {     
+  public static void Main() {     
+    MyClass[] nums = new MyClass[5]; 
+ 
+    nums[0] = new MyClass(5); 
+    nums[1] = new MyClass(2); 
+    nums[2] = new MyClass(3); 
+    nums[3] = new MyClass(4); 
+    nums[4] = new MyClass(1); 
+   
+    // Display original order. 
+    Console.Write("Original order: "); 
+    foreach(MyClass o in nums)  
+      Console.Write(o.i + " "); 
+    Console.WriteLine(); 
+ 
+    // Sort the array. 
+    Array.Sort(nums); 
+ 
+    // Display sorted order. 
+    Console.Write("Sorted order:   "); 
+    foreach(MyClass o in nums)  
+      Console.Write(o.i + " "); 
+    Console.WriteLine(); 
+ 
+    // Search for MyClass(2). 
+    MyClass x = new MyClass(2); 
+    int idx = Array.BinarySearch(nums, x); 
+ 
+    Console.WriteLine("Index of MyClass(2) is " + idx); 
+  }     
+}
+
+listing 7
+// Reverse an array. 
+ 
+using System;  
+  
+class ReverseDemo {     
+  public static void Main() {     
+    int[] nums = { 1, 2, 3, 4, 5 }; 
+   
+    // Display original order. 
+    Console.Write("Original order: "); 
+    foreach(int i in nums)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+    // Reverse the entire array. 
+    Array.Reverse(nums); 
+ 
+    // Display reversed order. 
+    Console.Write("Reversed order: "); 
+    foreach(int i in nums)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+    // Reverse a range. 
+    Array.Reverse(nums, 1, 3); 
+ 
+    // Display reversed order. 
+    Console.Write("Range reversed: "); 
+    foreach(int i in nums)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 8
+// Copy an array. 
+ 
+using System;  
+  
+class CopyDemo {     
+  public static void Main() {     
+    int[] source = { 1, 2, 3, 4, 5 }; 
+    int[] target = { 11, 12, 13, 14, 15 }; 
+    int[] source2 = { -1, -2, -3, -4, -5 }; 
+ 
+    // Display source. 
+    Console.Write("source: "); 
+    foreach(int i in source)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+    // Display original target. 
+    Console.Write("Original contents of target: "); 
+    foreach(int i in target)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+    // Copy the entire array. 
+    Array.Copy(source, target, source.Length); 
+ 
+    // Display copy. 
+    Console.Write("target after copy:  "); 
+    foreach(int i in target)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+    // Copy into middle of target. 
+    Array.Copy(source2, 2, target, 3, 2); 
+ 
+    // Display copy. 
+    Console.Write("target after copy:  "); 
+    foreach(int i in target)  
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 9
+// An automated pair of dice. 
+  
+using System;  
+  
+class RandDice {     
+  public static void Main() {     
+    Random ran = new Random(); 
+ 
+    Console.Write(ran.Next(1, 7) + " ");  
+    Console.WriteLine(ran.Next(1, 7));  
+  }     
+}
+
+listing 10
+// Demonstrate ICloneable. 
+ 
+using System;  
+ 
+class X { 
+  public int a; 
+ 
+  public X(int x) { a = x; } 
+} 
+ 
+class Test : ICloneable { 
+  public X o; 
+  public int b; 
+ 
+  public Test(int x, int y) { 
+    o = new X(x); 
+    b = y; 
+  } 
+ 
+  public void show(string name) { 
+    Console.Write(name + " values are "); 
+    Console.WriteLine("o.a: {0}, b: {1}", o.a, b); 
+  } 
+ 
+  // Make a deep copy of the invoking object. 
+  public object Clone() { 
+    Test temp = new Test(o.a, b); 
+    return temp; 
+  } 
+     
+} 
+  
+class CloneDemo {     
+  public static void Main() {     
+    Test ob1 = new Test(10, 20); 
+ 
+    ob1.show("ob1"); 
+ 
+    Console.WriteLine("Make ob2 a clone of ob1."); 
+    Test ob2 = (Test) ob1.Clone(); 
+ 
+    ob2.show("ob2"); 
+ 
+    Console.WriteLine("Changing ob1.o.a to 99 and ob1.b to 88."); 
+    ob1.o.a = 99; 
+    ob1.b = 88; 
+ 
+    ob1.show("ob1"); 
+    ob2.show("ob2"); 
+  } 
+}
+

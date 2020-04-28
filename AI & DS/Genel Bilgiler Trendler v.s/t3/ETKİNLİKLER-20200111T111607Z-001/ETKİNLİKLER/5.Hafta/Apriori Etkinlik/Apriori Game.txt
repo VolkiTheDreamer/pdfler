@@ -1,0 +1,98 @@
+Bu oyunda kağıt üzerinden en verimli market oluşturulmaya çalışınır.
+
+Öğrencilere Support ve Confidence nedir anlatırlır:
+	Support: Bir ürünün ne kadar populer olduğu. eğer 10 fişin 5 tanesinde ekmek alındı ise Support değeri %50 
+	Confidence: Bir ürünün alınması durumunda diğer ürünün alınma olasılığı. Eğer ekmek alınan fişlerin 5'te 1'inde peynirde alınıyorsa, {ekmek --> peynir} Confidence değeri %20 
+
+Öğrenciler 3'lerli gruplara ayrılır.
+Örnek fişler tahtaya yansıtılır.
+Örnek fişler üzerinden hesaplamaların nasıl yapılacağı anlatılır. 
+Öğrencilerden ürünlerin support değerlerinin hesaplanması istenir(kalan zamana göre hesaplatılan ürün sayısı sınırlanabilir. geri kalan ürünler tahtaya yansıtılır).
+Öğrencilerden ürünlerin association rules'larının hesaplanması istenir (yukarıdaki gibi zamana göre sınırlandırma yapılabilir.).
+Çıkardıkları sonuca göre marketlerini hazırlamaya başlarlar.
+
+Marketlerini bir müşterinin en az yürüyeceği şekilde hazırlarlar.
+Müşteri geri hareket edebilir.
+3 müşteri markette yürütülüp, yürüdükleri mesafenin ortalaması alınır. En az ortalamaya sahip olanlar kazanır. 
+
+Örnek Fişler:
+
+Çay, deterjan, Su, Peynir, Kek
+Su, Kek, Meyve suyu, Çay, Ekmek, Süt, Şemsiye
+Süt, Peynir, Meyve suyu, Bebek bezi
+Kek, Peynir, Su, Meyve suyu, Bebek bezi, Ekmek
+Meyve suyu, Çay
+Süt, Şemsiye, Çay, Meyve suyu
+Ekmek, Peynir
+Su, Bebek bezi, Ekmek, Meyve suyu, deterjan
+Kek, Şemsiye
+Kek, Su, Şemsiye, Süt, deterjan, Meyve suyu, Ekmek
+
+
+
+15 Large Itemsets (Threshold: 30%):
+
+{Çay} (support: 40%) 
+{deterjan} (support: 30%) 
+{Su} (support: 50%) 
+{Peynir} (support: 40%) 
+{Kek} (support: 50%) 
+{Meyve suyu} (support: 70%) 
+{Ekmek} (support: 50%) 
+{Süt} (support: 40%) 
+{Şemsiye} (support: 40%) 
+{Bebek bezi} (support: 30%) 
+{deterjan, Su} (support: 30%) 
+{Su, Kek} (support: 40%) 
+{Peynir, Kek} (support: 30%) 
+{Çay, Meyve suyu} (support: 30%) 
+{Su, Meyve suyu} (support: 40%) 
+{Kek, Meyve suyu} (support: 30%) 
+{Su, Ekmek} (support: 40%) 
+{Meyve suyu, Ekmek} (support: 40%) 
+{Meyve suyu, Süt} (support: 40%) 
+{Kek, Şemsiye} (support: 30%) 
+{Meyve suyu, Şemsiye} (support: 30%) 
+{Süt, Şemsiye} (support: 30%) 
+{Meyve suyu, Bebek bezi} (support: 30%) 
+{Kek, Ekmek} (support: 30%) 
+{Su, Kek, Meyve suyu} (support: 30%) 
+{Su, Kek, Ekmek} (support: 30%) 
+{Su, Meyve suyu, Ekmek} (support: 40%) 
+{Kek, Meyve suyu, Ekmek} (support: 30%) 
+{Meyve suyu, Süt, Şemsiye} (support: 30%) 
+{Su, Kek, Meyve suyu, Ekmek} (support: 30%) 
+
+
+22 Association Rules (Support Threshold:30%, Confidence Threshold: 70%):
+
+{Su} => {Kek} (Support: 40.00%,  Confidence: 80.00%)
+{Su} => {Meyve suyu} (Support: 40.00%,  Confidence: 80.00%,)
+{Su} => {Ekmek} (Support: 40.00%,  Confidence: 80.00%)
+{Ekmek} => {Su} (Support: 40.00%,  Confidence: 80.00%)
+{Ekmek} => {Meyve suyu} (Support: 40.00%,  Confidence: 80.00%)
+{Süt} => {Meyve suyu} (Support: 40.00%,  Confidence: 100.00%)
+{Ekmek} => {Kek}  (Support: 30.00%,  Confidence: 80.00%)
+{Bebek bezi} => {Meyve suyu} (Support: 30.00%,  Confidence: 100.00%)
+{Kek, Meyve suyu} => {Su} (Support: 30.00%,  Confidence: 100.00%)
+{Su} => {Meyve suyu, Ekmek} (Support: 40.00%,  Confidence: 80.00%)
+{Su, Meyve suyu} => {Ekmek} (Support: 40.00%,  Confidence: 100.00%)
+{Ekmek} => {Su, Meyve suyu} (Support: 40.00%,  Confidence: 80.00%)
+{Su, Ekmek} => {Meyve suyu} (Support: 40.00%,  Confidence: 100.00%)
+{Meyve suyu, Ekmek} => {Su} (Support: 40.00%,  Confidence: 100.00%)
+{deterjan} => {Su} (Support: 30.00%,  Confidence: 100.00%)
+{Kek, Meyve suyu} => {Ekmek} (Support: 30.00%,  Confidence: 100.00%)
+{Meyve suyu, Şemsiye} => {Süt} (Support: 30.00%,  Confidence: 100.00%)
+{Süt, Şemsiye} => {Meyve suyu} (Support: 30.00%,  Confidence: 100.00%)
+{Kek, Meyve suyu} => {Su, Ekmek} (Support: 30.00%,  Confidence: 100.00%)
+{Su, Kek, Meyve suyu} => {Ekmek} (Support: 30.00%,  Confidence: 100.00%)
+{Su, Kek, Ekmek} => {Meyve suyu} (Support: 30.00%,  Confidence: 100.00%)
+{Kek, Meyve suyu, Ekmek} => {Su} (Support: 30.00%,  Confidence: 100.00%)
+
+
+
+Öğrenciler Marketlerini Oluşturdıktan Sonra Verilecek Fişler:
+
+Su, Meyve Suyu, Deterjan, Süt, Şemsiye
+Kek, Meyve Suyu, Su, Şemşiye
+Çay, Peynir, Ekmek, Su, Meyve , Deterjan

@@ -1,0 +1,25 @@
+Bu oyun üzerinde 1'den 10'a kadar sayı olan kartlar ile oynanır.
+İlk 10'lu centroid olarak kullanmak üzere ayrılır.
+Diğer kartlardan istenildiği kadar seçilir.
+
+Önce K sayısı belirlenir, 3 diyelim.
+
+Centroid kartları arasından rastgele 3 kart seçilir.
+Oyun kartlarını seçtiğimiz Label kartlarını altlarına yerleştirilir.
+
+Örneğin;
+	Centroid'ler:	1		8		3
+
+Oyun kartı: 5
+			|5-1| = 4
+			|8-5| = 3
+			|3-5| = 2
+
+En küçük sayı 2 olduğundan oyun kartı 3'ün altına yerleştirilir. Bu işlem tüm kartlar yerleştirilene kadar devam eder.
+Tüm kartlar yerleştirildikten sonra her centroid'in altındaki kartların ayrı ayrı ortalaması alınır.
+Ortalamalar yeni centroid kartlarıyla değiştirilir. Örn; 3'ün altında ki kartların ortalaması 6 ise, 3 centroid kartlarından 6 ile değiştirilir.
+Oyun kartları değiştirilmiş centroid'lerin altlarına tekrardan dağıtılır.
+centroid'ler değişmeyene kadar bu işlem devam eder.
+
+Eğer bir kartın uzaklığı 2 centroide'de eşit uzaklıkta ise, eleman sayısı az olan centroide yerleştirilir.
+Eğer kartların ortalaması virgüllü ise (mesela 4,5). sayı yukarı yuvarlarnır.

@@ -1,0 +1,68 @@
+Naive Bayse Oyunu
+
+NaiveBayes1-1.png dosyası tahtaya yansıtılır.
+Öğrencilere olasılık tablosunun nasıl oluşturulacağı anlatılır.
+	Örnek bir olasılık tablosu çizilir.
+	Örnek olarak tablonun ilk 5 verisi kullanılabilir.
+Öğrencilerden tüm verinin olasılık tablosunu oluşturulması beklenir.
+Tablolar oluşturulduktan sonra NaiveBayes1-2.png dosyası tahtaya yansıtılır.
+Öğrenciler çıkardıkları sonuçları karşılaştırırlar.
+Bayes teoreminin formülü yazılarak nasıl hesaplama yapıldığı anlatılır.
+
+
+		   P(B|A) * P(A)
+P(A|B) =  ----------------
+				P(B)
+
+
+Örnek bir Temperature değeri verip tenis oynama ya da oynamamanın olasılığı sorulur.
+Örneğin;
+	Temperature değerinin Hot olduğu durumda tenis oynama olasılığım nedir?
+
+						P(Hot|Yes) x P(Yes)
+		P(Yes|Hot) = -------------------------
+								P(Hot)
+
+						0.22 x 0.64
+				   = -------------------------
+				   			0.29
+
+				   =  0.48
+
+Öğrenciler bu işlemleri yaptıktan sonra naiveBayes2-1 görseli tahtaya yansıtılır.
+Öğrencilerden tahtaya yasıtılan verilerin olasılık tablosunu çıkartmaları istenir.
+Öğrenciler olasılık tablosunu çıkartıktan sonra naiveBayes2-2 tahtaya yansıtılır.
+Öğrencilere asıl veriler gösterilip bu veriler üzerinden devam edinileceği söylenir.
+Tahtaya naiveBayes2-3 görseli yansıtılır ve çoklu feature'da bayes teoreminin nasıl uygulandığı anlatılır.
+Örnek bir gün seçilip golf oynayıp oynanmama olasılı sorulur.
+Örneğin;
+	today = {sunny, hot, normal, false}
+
+					P(Sunny|Yes) x P(Hot|Yes) x P(Normal|Yes) x P(False|Yes) x P(Yes)
+	P(Yes|today)=-----------------------------------------------------------------------
+											P(today)
+
+
+
+	P(Sunny|Yes) = 2/9
+    P(Hot|Yes) = 2/9
+    P(Normal|Yes) = 6/9
+    P(False|Yes) = 6/9
+    P(Yes) = 9/14
+
+    P(Sunny|No) = 3/5
+    P(Hot|No) = 2/5
+    P(Normal|No) = 1/5
+    P(False|No) = 2/5
+    P(No) = 5/14
+
+    P(today) = (P(Sunny|Yes) x P(Hot|Yes) x P(Normal|Yes) x P(False|Yes) x P(Yes)) + (P(Sunny|No) x P(Hot|No) x P(Normal|No) x P(False|No) x P(No))
+    		 = (2/9 x 2/9 x 6/9 x 6/9 x 9/14) + (3/5 x 2/5 x 1/5 x 2/5 x 5/14)
+    		 =  0,0141 + 0,0068
+    		 =  0,021
+
+    		 			0,0141
+    P(Yes|today) = ---------------------
+    					0,021
+
+    			 = 0,67

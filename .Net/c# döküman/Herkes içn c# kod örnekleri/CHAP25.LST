@@ -1,0 +1,271 @@
+listing 1
+// A form-based Windows Skeleton. 
+ 
+using System; 
+using System.Windows.Forms; 
+ 
+// WinSkel is derived from Form. 
+class WinSkel : Form { 
+ 
+  public WinSkel() { 
+    // Give the window a name. 
+    Text = "A Windows Skeleton"; 
+  }   
+ 
+  // Main is used only to start the application. 
+  [STAThread] 
+  public static void Main() { 
+    WinSkel skel = new WinSkel(); // create a form 
+ 
+    // Start the window running. 
+    Application.Run(skel); 
+  } 
+}
+
+listing 2
+// Add a Button. 
+ 
+using System; 
+using System.Windows.Forms; 
+using System.Drawing; 
+ 
+class ButtonForm : Form { 
+  Button MyButton = new Button(); 
+ 
+  public ButtonForm() { 
+    Text = "Using a Button"; 
+ 
+    MyButton = new Button(); 
+    MyButton.Text = "Press Here"; 
+    MyButton.Location = new Point(100, 200); 
+ 
+    Controls.Add(MyButton); 
+  }   
+ 
+  [STAThread] 
+  public static void Main() { 
+    ButtonForm skel = new ButtonForm(); 
+ 
+    Application.Run(skel); 
+  } 
+}
+
+listing 3
+// Handle button messages. 
+ 
+using System; 
+using System.Windows.Forms; 
+using System.Drawing; 
+ 
+class ButtonForm : Form { 
+  Button MyButton = new Button(); 
+ 
+  public ButtonForm() { 
+    Text = "Respond to a Button"; 
+ 
+    MyButton = new Button(); 
+    MyButton.Text = "Press Here"; 
+    MyButton.Location = new Point(100, 200); 
+ 
+    // Add button event handler to list. 
+    MyButton.Click += new EventHandler(MyButtonClick); 
+ 
+    Controls.Add(MyButton); 
+  }   
+ 
+  [STAThread] 
+  public static void Main() { 
+    ButtonForm skel = new ButtonForm(); 
+ 
+    Application.Run(skel); 
+  } 
+ 
+  // Handler for MyButton. 
+  protected void MyButtonClick(object who, EventArgs e) { 
+ 
+    if(MyButton.Top == 200) 
+      MyButton.Location = new Point(10, 10); 
+    else 
+      MyButton.Location = new Point(100, 200); 
+  } 
+}
+
+listing 4
+// An Alternative button handler. 
+protected void MyButtonClick(object who, EventArgs e) {  
+  Button b = (Button) who;  
+  
+  if(b.Top == 200)  
+    b.Location = new Point(10, 10);  
+  else  
+    b.Location = new Point(100, 200);  
+} 
+
+listing 5
+// Add a stop button. 
+ 
+using System; 
+using System.Windows.Forms; 
+using System.Drawing; 
+ 
+class ButtonForm : Form { 
+  Button MyButton; 
+  Button StopButton; 
+ 
+  public ButtonForm() { 
+    Text = "Adding a Stop Button"; 
+ 
+    // Create the buttons. 
+    MyButton = new Button(); 
+    MyButton.Text = "Press Here"; 
+    MyButton.Location = new Point(100, 200); 
+ 
+    StopButton = new Button(); 
+    StopButton.Text = "Stop"; 
+    StopButton.Location = new Point(100, 100); 
+ 
+    // Add the button event handlers to the window. 
+    MyButton.Click += new EventHandler(MyButtonClick); 
+    Controls.Add(MyButton); 
+    StopButton.Click += new EventHandler(StopButtonClick); 
+    Controls.Add(StopButton); 
+  }   
+ 
+  [STAThread] 
+  public static void Main() { 
+    ButtonForm skel = new ButtonForm(); 
+ 
+    Application.Run(skel); 
+  } 
+ 
+  // Handler for MyButton. 
+  protected void MyButtonClick(object who, EventArgs e) { 
+ 
+    if(MyButton.Top == 200) 
+      MyButton.Location = new Point(10, 10); 
+    else 
+      MyButton.Location = new Point(100, 200); 
+  } 
+ 
+  // Handler for StopButton. 
+  protected void StopButtonClick(object who, EventArgs e) { 
+ 
+    // If users answers Yes, terminate the program. 
+    DialogResult result = MessageBox.Show("Stop Program?", 
+                            "Terminate", 
+                            MessageBoxButtons.YesNo); 
+ 
+    if(result == DialogResult.Yes) Application.Exit(); 
+  } 
+}
+
+listing 6
+// Add a Main Menu. 
+ 
+using System; 
+using System.Windows.Forms; 
+ 
+class MenuForm : Form { 
+  MainMenu MyMenu; 
+ 
+  public MenuForm() { 
+    Text = "Adding a Main Menu"; 
+ 
+    // Create a main menu object. 
+    MyMenu  = new MainMenu(); 
+ 
+    // Add top-level menu items to the menu. 
+    MenuItem m1 = new MenuItem("File"); 
+    MyMenu.MenuItems.Add(m1); 
+ 
+    MenuItem m2 = new MenuItem("Tools"); 
+    MyMenu.MenuItems.Add(m2); 
+ 
+    // Create File submenu 
+    MenuItem subm1 = new MenuItem("Open"); 
+    m1.MenuItems.Add(subm1); 
+ 
+    MenuItem subm2 = new MenuItem("Close"); 
+    m1.MenuItems.Add(subm2); 
+ 
+    MenuItem subm3 = new MenuItem("Exit"); 
+    m1.MenuItems.Add(subm3); 
+ 
+    // Create Tools submenu 
+    MenuItem subm4 = new MenuItem("Coordinates"); 
+    m2.MenuItems.Add(subm4); 
+ 
+    MenuItem subm5 = new MenuItem("Change Size"); 
+    m2.MenuItems.Add(subm5); 
+ 
+    MenuItem subm6 = new MenuItem("Restore"); 
+    m2.MenuItems.Add(subm6); 
+ 
+ 
+    // Add event handlers for the menu items. 
+    subm1.Click += new EventHandler(MMOpenClick); 
+    subm2.Click += new EventHandler(MMCloseClick); 
+    subm3.Click += new EventHandler(MMExitClick); 
+    subm4.Click += new EventHandler(MMCoordClick); 
+    subm5.Click += new EventHandler(MMChangeClick); 
+    subm6.Click += new EventHandler(MMRestoreClick); 
+ 
+    // Assign the menu to the form. 
+    Menu = MyMenu; 
+  }   
+ 
+  [STAThread] 
+  public static void Main() { 
+    MenuForm skel = new MenuForm(); 
+ 
+    Application.Run(skel); 
+  } 
+ 
+  // Handler for main menu Coordinates selection. 
+  protected void MMCoordClick(object who, EventArgs e) { 
+    // Create a string that contains the cooridinates. 
+    string size = 
+      String.Format("{0}: {1}, {2}\n{3}: {4}, {5} ", 
+                    "Top, Left", Top, Left, 
+                    "Bottom, Right", Bottom, Right); 
+ 
+    // Display a message box. 
+    MessageBox.Show(size, "Window Coordinates", 
+                    MessageBoxButtons.OK); 
+  } 
+ 
+  // Handler for main menu Change selection. 
+  protected void MMChangeClick(object who, EventArgs e) { 
+    Width = Height = 200; 
+  } 
+ 
+  // Handler for main menu Restore selection. 
+  protected void MMRestoreClick(object who, EventArgs e) { 
+    Width = Height = 300; 
+  } 
+ 
+  // Handler for main menu Open selection. 
+  protected void MMOpenClick(object who, EventArgs e) { 
+ 
+    MessageBox.Show("Inactive", "Inactive", 
+                    MessageBoxButtons.OK); 
+  } 
+ 
+  // Handler for main menu Open selection. 
+  protected void MMCloseClick(object who, EventArgs e) { 
+ 
+    MessageBox.Show("Inactive", "Inactive", 
+                    MessageBoxButtons.OK); 
+  } 
+ 
+  // Handler for main menu Exit selection. 
+  protected void MMExitClick(object who, EventArgs e) { 
+ 
+    DialogResult result = MessageBox.Show("Stop Program?", 
+                            "Terminate", 
+                             MessageBoxButtons.YesNo); 
+ 
+    if(result == DialogResult.Yes) Application.Exit(); 
+  } 
+}
+

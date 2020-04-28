@@ -1,0 +1,245 @@
+listing 1
+// Demonstrate pointers and unsafe. 
+ 
+using System; 
+ 
+class UnsafeCode { 
+  // mark Main as unsafe 
+  unsafe public static void Main() { 
+    int count = 99; 
+    int* p; // create an int pointer 
+ 
+    p = &count; // put address of count into p 
+ 
+    Console.WriteLine("Initial value of count is " + *p); 
+ 
+    *p = 10; // assign the to count via p 
+     
+    Console.WriteLine("New value of count is " + *p); 
+  } 
+}
+
+listing 2
+// Demonstrate fixed. 
+ 
+using System; 
+ 
+class Test { 
+  public int num; 
+  public Test(int i) { num = i; } 
+} 
+ 
+class FixedCode { 
+  // mark Main as unsafe 
+  unsafe public static void Main() { 
+    Test o = new Test(19); 
+ 
+    fixed (int* p = &o.num) { // use fixed to put address of o.num into p 
+ 
+      Console.WriteLine("Initial value of o.num is " + *p); 
+   
+      *p = 10; // assign the to count via p 
+     
+      Console.WriteLine("New value of o.num is " + *p); 
+    } 
+  } 
+}
+
+listing 3
+// Demonstrate the effects of pointer arithmethic. 
+ 
+using System; 
+ 
+class PtrArithDemo { 
+  unsafe public static void Main() { 
+    int x; 
+    int i;  
+    double d; 
+ 
+    int* ip = &i; 
+    double* fp = &d; 
+ 
+    Console.WriteLine("int     double\n"); 
+ 
+    for(x=0; x < 10; x++) { 
+       Console.WriteLine((uint) (ip) + " " + 
+                         (uint) (fp)); 
+       ip++; 
+       fp++; 
+    } 
+  } 
+}
+
+listing 4
+// Demonstrate pointer comparison. 
+ 
+using System; 
+ 
+class PtrCompDemo { 
+  unsafe public static void Main() { 
+ 
+    int[] nums = new int[11]; 
+    int x; 
+ 
+    // find the middle 
+    fixed (int* start = &nums[0]) {  
+      fixed(int* end = &nums[nums.Length-1]) {  
+        for(x=0; start+x <= end-x; x++) ; 
+      } 
+    } 
+    Console.WriteLine("Middle element is " + x); 
+  } 
+}
+
+listing 5
+/* An array name with an index yields a pointer to the 
+   start of the array. */ 
+ 
+using System; 
+ 
+class PtrArray { 
+  unsafe public static void Main() { 
+    int[] nums = new int[10]; 
+ 
+    fixed(int* p = &nums[0], p2 = nums) { 
+      if(p == p2) 
+        Console.WriteLine("p and p2 point to same address."); 
+    } 
+  } 
+}
+
+listing 6
+// Index a pointer as if it were an array. 
+ 
+using System; 
+ 
+class PtrIndexDemo { 
+  unsafe public static void Main() { 
+    int[] nums = new int[10]; 
+ 
+    // index pointer 
+    Console.WriteLine("Index pointer like array."); 
+    fixed (int* p = nums) { 
+      for(int i=0; i < 10; i++)  
+        p[i] = i; // index pointer like array 
+ 
+      for(int i=0; i < 10; i++)  
+        Console.WriteLine("p[{0}]: {1} ", i, p[i]); 
+    } 
+ 
+    // use pointer arithmetic 
+    Console.WriteLine("\nUse pointer arithmetic."); 
+    fixed (int* p = nums) { 
+      for(int i=0; i < 10; i++)  
+        *(p+i) = i; // use pointer arithmetic 
+ 
+      for(int i=0; i < 10; i++)  
+        Console.WriteLine("*(p+{0}): {1} ", i, *(p+i)); 
+    } 
+  } 
+}
+
+listing 7
+// Use fixed to get a pointer to the start of a string. 
+ 
+using System; 
+ 
+class FixedString { 
+  unsafe public static void Main() { 
+    string str = "this is a test"; 
+ 
+    // Point p to start of str. 
+    fixed(char* p = str) { 
+ 
+      // Display the contents of str via p. 
+      for(int i=0; p[i] != 0; i++) 
+        Console.Write(p[i]); 
+    } 
+ 
+    Console.WriteLine(); 
+     
+  } 
+}
+
+listing 8
+using System; 
+ 
+class MultipleIndirect { 
+  unsafe public static void Main() { 
+    int x;    // holds a int value  
+    int* p;  // holds an int pointer 
+    int** q; // holds an pointer to an int pointer 
+ 
+    x = 10; 
+    p = &x; // put address of x into p 
+    q = &p; // put address of p into q 
+ 
+    Console.WriteLine(**q); // display the value of x  
+  } 
+}
+
+listing 9
+// Demonstrate readonly. 
+ 
+using System; 
+ 
+class MyClass { 
+  public static readonly int SIZE = 10; 
+} 
+ 
+class DemoReadOnly { 
+  public static void Main() { 
+    int[]nums = new int[MyClass.SIZE]; 
+ 
+    for(int i=0; i<MyClass.SIZE; i++) 
+      nums[i] = i; 
+ 
+    foreach(int i in nums) 
+      Console.Write(i + " "); 
+ 
+    // MyClass.SIZE = 100; // Error!!! can't change 
+  } 
+}
+
+listing 10
+// Demonstrate stackalloc. 
+ 
+using System; 
+ 
+class UseStackAlloc { 
+  unsafe public static void Main() { 
+    int* ptrs = stackalloc int[3]; 
+ 
+    ptrs[0] = 1; 
+    ptrs[1] = 2; 
+    ptrs[2] = 3; 
+ 
+    for(int i=0; i < 3; i++) 
+      Console.WriteLine(ptrs[i]); 
+  } 
+}
+
+listing 11
+// Demonstrate using statement. 
+ 
+using System; 
+using System.IO; 
+ 
+class UsingDemo { 
+  public static void Main() { 
+    StreamReader sr = new StreamReader("test.txt"); 
+ 
+    // Use object inside using statement. 
+    using(sr) { 
+      Console.WriteLine(sr.ReadLine()); 
+      sr.Close(); 
+    } 
+ 
+    // Create StreamReader inside the using statement. 
+    using(StreamReader sr2 = new StreamReader("test.txt")) { 
+      Console.WriteLine(sr2.ReadLine()); 
+      sr2.Close(); 
+    } 
+  } 
+}
+

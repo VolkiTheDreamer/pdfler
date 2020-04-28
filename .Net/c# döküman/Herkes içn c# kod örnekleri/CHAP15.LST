@@ -1,0 +1,653 @@
+listing 1
+// A simple delegate example.  
+  
+using System; 
+ 
+// Declare a delegate.  
+delegate string strMod(string str); 
+ 
+class DelegateTest { 
+  // Replaces spaces with hyphens. 
+  static string replaceSpaces(string a) { 
+    Console.WriteLine("Replaces spaces with hyphens."); 
+    return a.Replace(' ', '-'); 
+  }  
+ 
+  // Remove spaces. 
+  static string removeSpaces(string a) { 
+    string temp = ""; 
+    int i; 
+ 
+    Console.WriteLine("Removing spaces."); 
+    for(i=0; i < a.Length; i++) 
+      if(a[i] != ' ') temp += a[i]; 
+ 
+    return temp; 
+  }  
+ 
+  // Reverse a string. 
+  static string reverse(string a) { 
+    string temp = ""; 
+    int i, j; 
+ 
+    Console.WriteLine("Reversing string."); 
+    for(j=0, i=a.Length-1; i >= 0; i--, j++) 
+      temp += a[i]; 
+ 
+    return temp; 
+  } 
+     
+  public static void Main() {  
+    // Construct a delegate. 
+    strMod strOp = new strMod(replaceSpaces); 
+    string str; 
+ 
+    // Call methods through the delegate. 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+      
+    strOp = new strMod(removeSpaces); 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+ 
+    strOp = new strMod(reverse); 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+  } 
+}
+
+listing 2
+// Delegates can refer to instance methods, too. 
+  
+using System; 
+ 
+// Declare a delegate.  
+delegate string strMod(string str); 
+
+class StringOps {
+  // Replaces spaces with hyphens. 
+  public string replaceSpaces(string a) { 
+    Console.WriteLine("Replaces spaces with hyphens."); 
+    return a.Replace(' ', '-'); 
+  }  
+ 
+  // Remove spaces. 
+  public string removeSpaces(string a) { 
+    string temp = ""; 
+    int i; 
+ 
+    Console.WriteLine("Removing spaces."); 
+    for(i=0; i < a.Length; i++) 
+      if(a[i] != ' ') temp += a[i]; 
+ 
+    return temp; 
+  }  
+ 
+  // Reverse a string. 
+  public string reverse(string a) { 
+    string temp = ""; 
+    int i, j; 
+ 
+    Console.WriteLine("Reversing string."); 
+    for(j=0, i=a.Length-1; i >= 0; i--, j++) 
+      temp += a[i]; 
+ 
+    return temp; 
+  } 
+} 
+ 
+class DelegateTest {   
+  public static void Main() { 
+    StringOps so = new StringOps(); // create an instance of StringOps
+ 
+    // Construct a delegate. 
+    strMod strOp = new strMod(so.replaceSpaces); 
+    string str; 
+ 
+    // Call methods through delegates. 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+      
+    strOp = new strMod(so.removeSpaces); 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+ 
+    strOp = new strMod(so.reverse); 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+  } 
+}
+
+listing 3
+// Demonstrate multicasting.  
+  
+using System; 
+ 
+// Declare a delegate.  
+delegate void strMod(ref string str); 
+ 
+class StringOps { 
+  // Replaces spaces with hyphens. 
+  static void replaceSpaces(ref string a) { 
+    Console.WriteLine("Replaces spaces with hyphens."); 
+    a = a.Replace(' ', '-'); 
+  }  
+ 
+  // Remove spaces. 
+  static void removeSpaces(ref string a) { 
+    string temp = ""; 
+    int i; 
+ 
+    Console.WriteLine("Removing spaces."); 
+    for(i=0; i < a.Length; i++) 
+      if(a[i] != ' ') temp += a[i]; 
+ 
+    a = temp; 
+  }  
+ 
+  // Reverse a string. 
+  static void reverse(ref string a) { 
+    string temp = ""; 
+    int i, j; 
+ 
+    Console.WriteLine("Reversing string."); 
+    for(j=0, i=a.Length-1; i >= 0; i--, j++) 
+      temp += a[i]; 
+ 
+    a = temp; 
+  } 
+     
+  public static void Main() {  
+    // Construct delegates. 
+    strMod strOp; 
+    strMod replaceSp = new strMod(replaceSpaces); 
+    strMod removeSp = new strMod(removeSpaces); 
+    strMod reverseStr = new strMod(reverse); 
+    string str = "This is a test"; 
+ 
+    // Set up multicast. 
+    strOp = replaceSp; 
+    strOp += reverseStr; 
+ 
+    // Call multicast. 
+    strOp(ref str); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+     
+    // Remove replace and add remove. 
+    strOp -= replaceSp; 
+    strOp += removeSp; 
+ 
+    str = "This is a test."; // reset string 
+ 
+    // Call multicast. 
+    strOp(ref str); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 4
+// A very simple event demonstration. 
+  
+using System; 
+ 
+// Declare a delegate for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare an event class. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to fire the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class EventDemo { 
+  // An event handler. 
+  static void handler() { 
+    Console.WriteLine("Event occurred"); 
+  } 
+ 
+  public static void Main() {  
+    MyEvent evt = new MyEvent(); 
+ 
+    // Add handler() to the event list. 
+    evt.SomeEvent += new MyEventHandler(handler); 
+ 
+    // Fire the event. 
+    evt.OnSomeEvent(); 
+  } 
+} 
+
+
+listing 5
+// An event multicast demonstration. 
+  
+using System; 
+ 
+// Declare a delegate for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare an event class. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to fire the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class X { 
+  public void Xhandler() { 
+    Console.WriteLine("Event received by X object"); 
+  } 
+} 
+ 
+class Y { 
+  public void Yhandler() { 
+    Console.WriteLine("Event received by Y object"); 
+  } 
+} 
+ 
+class EventDemo { 
+  static void handler() { 
+    Console.WriteLine("Event received by EventDemo"); 
+  } 
+ 
+  public static void Main() {  
+    MyEvent evt = new MyEvent(); 
+    X xOb = new X(); 
+    Y yOb = new Y(); 
+ 
+    // Add handlers to the event list. 
+    evt.SomeEvent += new MyEventHandler(handler); 
+    evt.SomeEvent += new MyEventHandler(xOb.Xhandler); 
+    evt.SomeEvent += new MyEventHandler(yOb.Yhandler); 
+ 
+    // Fire the event. 
+    evt.OnSomeEvent(); 
+    Console.WriteLine(); 
+ 
+    // Remove a handler. 
+    evt.SomeEvent -= new MyEventHandler(xOb.Xhandler); 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 6
+/* Individual objects receive notifications when instance 
+   event handlers are used. */ 
+  
+using System; 
+ 
+// Declare a delegate for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare an event class. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to fire the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class X { 
+  int id; 
+ 
+  public X(int x) { id = x; } 
+ 
+  // This is an instance method that will be used as an event handler. 
+  public void Xhandler() { 
+    Console.WriteLine("Event received by object " + id); 
+  } 
+} 
+ 
+class EventDemo { 
+  public static void Main() {  
+    MyEvent evt = new MyEvent(); 
+    X o1 = new X(1); 
+    X o2 = new X(2); 
+    X o3 = new X(3); 
+ 
+    evt.SomeEvent += new MyEventHandler(o1.Xhandler); 
+    evt.SomeEvent += new MyEventHandler(o2.Xhandler); 
+    evt.SomeEvent += new MyEventHandler(o3.Xhandler); 
+ 
+    // Fire the event. 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 7
+/* A class receives the notification when  
+   a static method is used as an event handler. */ 
+  
+using System; 
+ 
+// Declare a delegate for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare an event class. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to fire the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class X { 
+ 
+  /* This is a static method that will be used as 
+     an event handler. */ 
+  public static void Xhandler() { 
+    Console.WriteLine("Event received by class."); 
+  } 
+} 
+ 
+class EventDemo { 
+  public static void Main() {  
+    MyEvent evt = new MyEvent(); 
+ 
+    evt.SomeEvent += new MyEventHandler(X.Xhandler); 
+ 
+    // Fire the event. 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 8
+// Create a custom means of managing the event invocation list. 
+   
+using System;  
+  
+// Declare a delegate for an event.   
+delegate void MyEventHandler();  
+  
+// Declare an event class that holds up to 3 events. 
+class MyEvent {  
+  MyEventHandler[] evnt = new MyEventHandler[3]; 
+ 
+  public event MyEventHandler SomeEvent { 
+    // Add an event to the list. 
+    add { 
+      int i; 
+ 
+      for(i=0; i < 3; i++) 
+        if(evnt[i] == null) { 
+          evnt[i] = value;  
+          break; 
+        } 
+      if (i == 3) Console.WriteLine("Event list full."); 
+    } 
+ 
+    // Remove an event from the list. 
+    remove { 
+      int i; 
+ 
+      for(i=0; i < 3; i++) 
+        if(evnt[i] == value) { 
+          evnt[i] = null; 
+          break; 
+        } 
+      if (i == 3) Console.WriteLine("Event handler not found."); 
+    } 
+  }  
+  
+  // This is called to fire the events.  
+  public void OnSomeEvent() {  
+      for(int i=0; i < 3; i++) 
+        if(evnt[i] != null) evnt[i]();  
+  }  
+ 
+}  
+  
+// Create some classes that use MyEventHandler. 
+class W { 
+  public void Whandler() {  
+    Console.WriteLine("Event received by W object");  
+  }  
+}  
+  
+class X { 
+  public void Xhandler() {  
+    Console.WriteLine("Event received by X object");  
+  }  
+}  
+  
+class Y {  
+  public void Yhandler() {  
+    Console.WriteLine("Event received by Y object");  
+  }  
+}  
+  
+class Z {  
+  public void Zhandler() {  
+    Console.WriteLine("Event received by Z object");  
+  }  
+}  
+  
+class EventDemo {  
+  public static void Main() {   
+    MyEvent evt = new MyEvent();  
+    W wOb = new W();  
+    X xOb = new X();  
+    Y yOb = new Y();  
+    Z zOb = new Z(); 
+ 
+    // Add handlers to the event list. 
+    Console.WriteLine("Adding events."); 
+    evt.SomeEvent += new MyEventHandler(wOb.Whandler);  
+    evt.SomeEvent += new MyEventHandler(xOb.Xhandler);  
+    evt.SomeEvent += new MyEventHandler(yOb.Yhandler);  
+ 
+    // Can't store this one -- full. 
+    evt.SomeEvent += new MyEventHandler(zOb.Zhandler);  
+    Console.WriteLine(); 
+  
+    // Fire the events.  
+    evt.OnSomeEvent();  
+    Console.WriteLine();  
+  
+    // Remove a handler. 
+    Console.WriteLine("Remove xOb.Xhandler."); 
+    evt.SomeEvent -= new MyEventHandler(xOb.Xhandler);  
+    evt.OnSomeEvent();  
+ 
+    Console.WriteLine(); 
+ 
+    // Try to remove it again. 
+    Console.WriteLine("Try to remove xOb.Xhandler again."); 
+    evt.SomeEvent -= new MyEventHandler(xOb.Xhandler);  
+    evt.OnSomeEvent();  
+ 
+    Console.WriteLine(); 
+ 
+    // Now, add Zhandler. 
+    Console.WriteLine("Add zOb.Zhandler."); 
+    evt.SomeEvent += new MyEventHandler(zOb.Zhandler); 
+    evt.OnSomeEvent();  
+ 
+  }  
+} 
+
+
+listing 9
+// A .NET-compatible event. 
+  
+using System; 
+ 
+// Derive a class from EventArgs. 
+class MyEventArgs : EventArgs { 
+  public int eventnum; 
+} 
+ 
+// Declare a delegate for an event.  
+delegate void MyEventHandler(object source, MyEventArgs arg); 
+ 
+// Declare an event class. 
+class MyEvent { 
+  static int count = 0; 
+ 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This fires SomeEvent. 
+  public void OnSomeEvent() { 
+    MyEventArgs arg = new MyEventArgs(); 
+ 
+    if(SomeEvent != null) { 
+      arg.eventnum = count++; 
+      SomeEvent(this, arg); 
+    } 
+  } 
+} 
+ 
+class X { 
+  public void handler(object source, MyEventArgs arg) { 
+    Console.WriteLine("Event " + arg.eventnum + 
+                      " received by an X object."); 
+    Console.WriteLine("Source is " + source); 
+    Console.WriteLine(); 
+  } 
+} 
+ 
+class Y {  
+  public void handler(object source, MyEventArgs arg) { 
+    Console.WriteLine("Event " + arg.eventnum + 
+                      " received by a Y object."); 
+    Console.WriteLine("Source is " + source); 
+    Console.WriteLine(); 
+  } 
+} 
+ 
+ 
+class EventDemo { 
+  public static void Main() {  
+    X ob1 = new X(); 
+    Y ob2 = new Y(); 
+    MyEvent evt = new MyEvent(); 
+ 
+    // Add handler() to the event list. 
+    evt.SomeEvent += new MyEventHandler(ob1.handler); 
+    evt.SomeEvent += new MyEventHandler(ob2.handler); 
+ 
+    // Fire the event. 
+    evt.OnSomeEvent(); 
+    evt.OnSomeEvent(); 
+  } 
+} 
+
+
+listing 10
+// Use the bult-in EventHandler delegate. 
+  
+using System; 
+ 
+// Declare an event class. 
+class MyEvent { 
+  public event EventHandler SomeEvent; // uses EventHandler delegate 
+ 
+  // This is called to fire SomeEvent. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(this, EventArgs.Empty); 
+  } 
+} 
+ 
+class EventDemo { 
+  static void handler(object source, EventArgs arg) { 
+    Console.WriteLine("Event occurred"); 
+    Console.WriteLine("Source is " + source); 
+  } 
+ 
+  public static void Main() {  
+    MyEvent evt = new MyEvent(); 
+ 
+    // Add handler() to the event list. 
+    evt.SomeEvent += new EventHandler(handler); 
+ 
+    // Fire the event. 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 11
+// An keypress event example. 
+  
+using System; 
+ 
+// Derive a custom EventArgs class that holds the key. 
+class KeyEventArgs : EventArgs { 
+  public char ch; 
+} 
+ 
+// Declare a delegate for an event.  
+delegate void KeyHandler(object source, KeyEventArgs arg); 
+ 
+// Declare a key-press event class. 
+class KeyEvent { 
+  public event KeyHandler KeyPress; 
+ 
+  // This is called when a key is pressed. 
+  public void OnKeyPress(char key) { 
+    KeyEventArgs k = new KeyEventArgs(); 
+   
+    if(KeyPress != null) { 
+      k.ch = key; 
+      KeyPress(this, k); 
+    } 
+  } 
+} 
+ 
+// A class that receives key-press notifications. 
+class ProcessKey { 
+  public void keyhandler(object source, KeyEventArgs arg) { 
+    Console.WriteLine("Received keystroke: " + arg.ch); 
+  } 
+} 
+ 
+// Another class that receives key-press notifications. 
+class CountKeys { 
+  public int count = 0; 
+ 
+  public void keyhandler(object source, KeyEventArgs arg) { 
+    count++; 
+  } 
+} 
+ 
+// Demonstrate KeyEvent. 
+class KeyEventDemo { 
+  public static void Main() {  
+    KeyEvent kevt = new KeyEvent(); 
+    ProcessKey pk = new ProcessKey(); 
+    CountKeys ck = new CountKeys(); 
+    char ch; 
+ 
+    kevt.KeyPress += new KeyHandler(pk.keyhandler); 
+    kevt.KeyPress += new KeyHandler(ck.keyhandler); 
+ 
+    Console.WriteLine("Enter some characters. " + 
+                      "Enter a period to stop."); 
+    do { 
+      ch = (char) Console.Read(); 
+      kevt.OnKeyPress(ch); 
+    } while(ch != '.'); 
+    Console.WriteLine(ck.count + " keys pressed."); 
+  } 
+}
+

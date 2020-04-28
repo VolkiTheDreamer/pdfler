@@ -1,0 +1,11 @@
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\bin\Debug\WindowProperties.exe
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\bin\Debug\WindowProperties.pdb
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\MainWindow.baml
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\MainWindow.g.cs
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\App.g.cs
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\WindowProperties_MarkupCompile.cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\WindowProperties.g.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\WindowProperties.Properties.Resources.resources
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\WindowProperties.csproj.GenerateResource.Cache
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\WindowProperties.exe
+C:\Users\Volkan\OneDrive\Uygulama Geliştirme\Visual Studio\Dökümantasyon\c# döküman\Visual CSharp Step By Step\Chapter 15\WindowProperties - Complete\WindowProperties\obj\Debug\WindowProperties.pdb

@@ -1,0 +1,5 @@
+Tüm öğrencilerin boy ve kulaç ölçüleri alınır.
+site (https://planetcalc.com/5992/) içerisinde ki x değerlerine boylar
+y değerlerine kulaçlar yazılır (ilk boy x öğrencisinin ise ilk kulaç x öğrencisinin olacak. Bu şekilde sıra bozulmadan yazılacak).
+sitenin altında ki linear ve logarithmic regression hariç diğerleri kapatılarak öğrencilere grafik gösterilir. ve grafik üzerinden analiz yapılır.
+

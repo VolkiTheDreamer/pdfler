@@ -1,0 +1,112 @@
+  Bu oyun 3'e 3 bir tablo üzerinde bir insan ve kutular ile Her 2 tarafında 3'er parçası olacak şekilde oynanır.
+  
+Malzemeler:
+    Üzerine Hamlelerin yapıştırılmış olduğu 24 kutu
+    Üzerinde yapay zeka ve insan yazısı olan 3’er fiş
+    3’e 3’lük oyun tahtası çıktısı
+Kazanma Şartı:
+    Karşı tarafa bir parçasını ulaştıran kazanır.
+    Hiç hareketi kalmayan taraf oyunu kaybeder.
+    Taşı kalmayan taraf kaybeder.
+
+Genel Kurallar:
+    Her zaman ilk insan başlar.
+    Parçalar sadece ileri hareket edebilir.
+    Parçalar çaprazında ki parçaları yiyebilir.
+    Önünde başka parça olan parça ileri hareket edemez.
+
+Oynanış:
+    İnsan hamlesini yapar.
+    Tur sayısı ve oyun tahtasıyla eşleşen kutudan rastgele bir boncuk alınır.
+    Boncuğun rengiyle eşleşen, kutunun üzerinde ki hamle oynanır.
+    Bir taraf kazanana kadar bu işlemler devam eder.
+    Eğer bilgisayar kaybetmiş ise, Son oynanılan kutudan, oynanılan hamlenin renginde ki boncuk çıkarılır. Aksi durumda bir şey yapılmaz.
+    Skorlar IIYIYY şeklinde, I insanın kazanma Y yapay zekanın kazanması olarak tutulur.
+    
+
+  -- -- --
+ | x| x| x|
+  -- -- --
+ |  |  |  |
+  -- -- --
+ | o| o| o|
+  -- -- --
+
+  x -> Yapay zeka
+  o -> Insan
+
+Insan Oynar
+  -- -- --
+ | x| x| x|
+  -- -- --
+ |  | o|  |  -> olasılık görselinde ki 2. görsel
+  -- -- --
+ | o|  | o|
+  -- -- --
+
+2. Kutudan rastgele bir boncuk alınır.
+Kırmızı Boncuk olsun.
+  -- -- --
+ |  | x| x|
+  -- -- --
+ |  | x|  |
+  -- -- --
+ | o|  | o|
+
+  -- -- --
+Insan Oynar.
+  -- -- --
+ |  | x| x|
+  -- -- --
+ |  | o|  | ->olasılık görselinde ki 11. görsel
+  -- -- --
+ |  |  | o|
+  -- -- --
+
+11. Kutudan rastgele bir boncuk alınır.
+Yeşil boncuk olsun.
+  -- -- --
+ |  | x|  |
+  -- -- --
+ |  | x|  |
+  -- -- --
+ |  |  | o|
+  -- -- --
+
+Insan oynar
+  -- -- --
+ |  | x|  |
+  -- -- --
+ |  | o|  | -> yapay zekanın oynayacak hamlesi kalmadığından kaybeder. 
+  -- -- --
+ |  |  |  |    en son 11. kutudan yeşil boncuk oynanılmıştı. yeşil boncuk 11. kutudan çıkarılır.   
+  -- -- --
+
+11. Kutudan çıkan boncuk kırmızı olsaydı
+  -- -- --
+ |  | x|  |
+  -- -- --
+ |  | o| x| -> insanın yapacak hamlesi kalmazdı ve yapay zeka kazanırdı ve oyundan boncuk çıkarılmazdı.
+  -- -- --
+ |  |  | o|
+  -- -- --
+
+
+Başka bir kazanma koşulları.
+
+  -- -- --
+ |  |  | x|
+  -- -- --
+ |  | o|  | --> sol alta x ulaştığından dolayı yz kazanır
+  -- -- --
+ | x|  |  |
+  -- -- --
+
+
+  -- -- --
+ |  |  |  |
+  -- -- --
+ | x| x|  | -->Insanın taşı kalmadığından Yz kazanır.
+  -- -- --
+ |  |  |  |
+  -- -- --
