@@ -1,0 +1,408 @@
+listing 1
+// Demonstrate the % operator. 
+ 
+using System; 
+ 
+class ModDemo {    
+  public static void Main() {    
+    int iresult, irem; 
+    double dresult, drem; 
+ 
+    iresult = 10 / 3; 
+    irem = 10 % 3; 
+ 
+    dresult = 10.0 / 3.0; 
+    drem = 10.0 % 3.0;  
+ 
+    Console.WriteLine("Result and remainder of 10 / 3: " + 
+                       iresult + " " + irem); 
+    Console.WriteLine("Result and remainder of 10.0 / 3.0: " + 
+                       dresult + " " + drem); 
+  }    
+}
+
+listing 2
+/* 
+   Demonstrate the difference between prefix 
+   postfix forms of ++. 
+*/ 
+using System; 
+ 
+class PrePostDemo {  
+  public static void Main() {    
+    int x, y; 
+    int i; 
+ 
+    x = 1; 
+    Console.WriteLine("Series generated using y = x + x++;"); 
+    for(i = 0; i < 10; i++) { 
+ 
+      y = x + x++; // postfix ++ 
+ 
+      Console.WriteLine(y + " "); 
+    } 
+    Console.WriteLine(); 
+ 
+    x = 1; 
+    Console.WriteLine("Series generated using y = x + ++x;"); 
+    for(i = 0; i < 10; i++) { 
+ 
+      y = x + ++x; // prefix ++ 
+ 
+      Console.WriteLine(y + " "); 
+    } 
+    Console.WriteLine(); 
+    
+  } 
+}
+
+listing 3
+// Demonstrate the relational and logical operators. 
+ 
+using System; 
+ 
+class RelLogOps {    
+  public static void Main() {    
+    int i, j; 
+    bool b1, b2; 
+ 
+    i = 10; 
+    j = 11; 
+    if(i < j) Console.WriteLine("i < j"); 
+    if(i <= j) Console.WriteLine("i <= j"); 
+    if(i != j) Console.WriteLine("i != j"); 
+    if(i == j) Console.WriteLine("this won't execute"); 
+    if(i >= j) Console.WriteLine("this won't execute"); 
+    if(i > j) Console.WriteLine("this won't execute"); 
+ 
+    b1 = true; 
+    b2 = false; 
+    if(b1 & b2) Console.WriteLine("this won't execute"); 
+    if(!(b1 & b2)) Console.WriteLine("!(b1 & b2) is true"); 
+    if(b1 | b2) Console.WriteLine("b1 | b2 is true"); 
+    if(b1 ^ b2) Console.WriteLine("b1 ^ b2 is true"); 
+  }    
+}
+
+listing 4
+// Create an implication operator in C#. 
+using System; 
+ 
+class Implication {  
+  public static void Main() {    
+    bool p=false, q=false; 
+    int i, j; 
+ 
+    for(i = 0; i < 2; i++) { 
+      for(j = 0; j < 2; j++) { 
+        if(i==0) p = true; 
+        if(i==1) p = false; 
+        if(j==0) q = true; 
+        if(j==1) q = false; 
+         
+        Console.WriteLine("p is " + p + ", q is " + q); 
+        if(!p | q) Console.WriteLine(p + " implies " + q + 
+                    " is " + true);   
+        Console.WriteLine(); 
+      } 
+    } 
+  } 
+}
+
+listing 5
+// Demonstrate the short-circuit operators. 
+ 
+using System; 
+ 
+class SCops {    
+  public static void Main() {    
+    int n, d; 
+ 
+    n = 10; 
+    d = 2; 
+    if(d != 0 && (n % d) == 0) 
+      Console.WriteLine(d + " is a factor of " + n); 
+ 
+    d = 0; // now, set d to zero 
+ 
+    // Since d is zero, the second operand is not evaluated. 
+    if(d != 0 && (n % d) == 0) 
+      Console.WriteLine(d + " is a factor of " + n);  
+     
+    /* Now, try the same thing without short-circuit operator. 
+       This will cause a divide-by-zero error.  */ 
+    if(d != 0 & (n % d) == 0) 
+      Console.WriteLine(d + " is a factor of " + n); 
+  }    
+}
+
+listing 6
+// Side-effects can be important. 
+ 
+using System; 
+ 
+class SideEffects {    
+  public static void Main() {    
+    int i; 
+ 
+    i = 0; 
+ 
+    /* Here, i is still incremented even though 
+       the if statement fails. */ 
+    if(false & (++i < 100)) 
+       Console.WriteLine("this won't be displayed"); 
+    Console.WriteLine("if statement executed: " + i); // displays 1 
+ 
+    /* In this case, i is not incremented because 
+       the short-circuit operator skips the increment. */ 
+    if(false && (++i < 100)) 
+      Console.WriteLine("this won't be displayed"); 
+    Console.WriteLine("if statement executed: " + i); // still 1 !! 
+  }    
+}
+
+listing 7
+//  Use bitwise AND to make a number even. 
+using System; 
+ 
+class MakeEven {  
+  public static void Main() { 
+    ushort num;  
+    ushort i;     
+ 
+    for(i = 1; i <= 10; i++) { 
+      num = i; 
+ 
+      Console.WriteLine("num: " + num); 
+ 
+      num = (ushort) (num & 0xFFFE); // num & 1111 1110 
+ 
+      Console.WriteLine("num after turning off bit zero: " 
+                        +  num + "\n");  
+    } 
+  } 
+}
+
+listing 8
+//  Use bitwise AND to determine if a number is odd. 
+using System; 
+ 
+class IsOdd {  
+  public static void Main() { 
+    ushort num;  
+ 
+    num = 10; 
+ 
+    if((num & 1) == 1) 
+      Console.WriteLine("This won't display."); 
+ 
+    num = 11; 
+ 
+    if((num & 1) == 1) 
+      Console.WriteLine(num + " is odd."); 
+ 
+  } 
+}
+
+listing 9
+// Display the bits within a byte.  
+using System; 
+ 
+class ShowBits { 
+  public static void Main() { 
+    int t; 
+    byte val;  
+  
+    val = 123; 
+    for(t=128; t > 0; t = t/2) { 
+      if((val & t) != 0) Console.Write("1 ");  
+      if((val & t) == 0) Console.Write("0 ");  
+    } 
+  } 
+}
+
+listing 10
+//  Use bitwise OR to make a number odd. 
+using System; 
+ 
+class MakeOdd {  
+  public static void Main() { 
+    ushort num;  
+    ushort i;     
+ 
+    for(i = 1; i <= 10; i++) { 
+      num = i; 
+ 
+      Console.WriteLine("num: " + num); 
+ 
+      num = (ushort) (num | 1); // num | 0000 0001 
+ 
+      Console.WriteLine("num after turning on bit zero: " 
+                        +  num + "\n");  
+    } 
+  } 
+}
+
+listing 11
+// Use XOR to encode and decode a message. 
+ 
+using System; 
+ 
+class Encode {  
+  public static void Main() { 
+    char ch1 = 'H'; 
+    char ch2 = 'i'; 
+    char ch3 = '!'; 
+ 
+    int key = 88; 
+ 
+    Console.WriteLine("Original message: " + 
+                      ch1 + ch2 + ch3); 
+ 
+    // encode the message 
+    ch1 = (char) (ch1 ^ key); 
+    ch2 = (char) (ch2 ^ key); 
+    ch3 = (char) (ch3 ^ key); 
+ 
+    Console.WriteLine("Encoded message: " +  
+                      ch1 + ch2 + ch3); 
+ 
+    // decode the message 
+    ch1 = (char) (ch1 ^ key); 
+    ch2 = (char) (ch2 ^ key); 
+    ch3 = (char) (ch3 ^ key); 
+    
+    Console.WriteLine("Decoded message: " + 
+                      ch1 + ch2 + ch3); 
+  } 
+}
+
+listing 12
+// Demonstrate the bitwise NOT. 
+using System; 
+ 
+class NotDemo { 
+  public static void Main() { 
+    sbyte b = -34; 
+    int t; 
+ 
+    for(t=128; t > 0; t = t/2) { 
+      if((b & t) != 0) Console.Write("1 ");  
+      if((b & t) == 0) Console.Write("0 ");  
+    } 
+    Console.WriteLine(); 
+ 
+    // reverse all bits 
+    b = (sbyte) ~b; 
+ 
+    for(t=128; t > 0; t = t/2) { 
+      if((b & t) != 0) Console.Write("1 ");  
+      if((b & t) == 0) Console.Write("0 ");  
+    } 
+  } 
+} 
+
+listing 13
+// Demonstrate the shift << and >> operators. 
+using System; 
+ 
+class ShiftDemo { 
+  public static void Main() { 
+    int val = 1; 
+    int t; 
+    int i; 
+ 
+    for(i = 0; i < 8; i++) {  
+      for(t=128; t > 0; t = t/2) { 
+        if((val & t) != 0) Console.Write("1 ");  
+        if((val & t) == 0) Console.Write("0 ");  
+      } 
+      Console.WriteLine(); 
+      val = val << 1; // left shift 
+    } 
+    Console.WriteLine(); 
+ 
+    val = 128; 
+    for(i = 0; i < 8; i++) {  
+      for(t=128; t > 0; t = t/2) { 
+        if((val & t) != 0) Console.Write("1 ");  
+        if((val & t) == 0) Console.Write("0 ");  
+      } 
+      Console.WriteLine(); 
+      val = val >> 1; // right shift 
+    } 
+  } 
+}
+
+listing 14
+// Use the shift operators to multiply and divide by 2. 
+using System; 
+ 
+class MultDiv {  
+  public static void Main() { 
+    int n; 
+ 
+    n = 10; 
+ 
+    Console.WriteLine("Value of n: " + n); 
+ 
+    // multiply by 2 
+    n = n << 1; 
+    Console.WriteLine("Value of n after n = n * 2: " + n); 
+ 
+    // multiply by 4 
+    n = n << 2; 
+    Console.WriteLine("Value of n after n = n * 4: " + n); 
+ 
+    // divide by 2 
+    n = n >> 1; 
+    Console.WriteLine("Value of n after n = n / 2: " + n); 
+ 
+    // divide by 4 
+    n = n >> 2; 
+    Console.WriteLine("Value of n after n = n / 4: " + n); 
+    Console.WriteLine(); 
+ 
+    // reset n 
+    n = 10; 
+    Console.WriteLine("Value of n: " + n); 
+ 
+    // multiply by 2, 30 times 
+    n = n << 30; // data is lost 
+    Console.WriteLine("Value of n after left-shifting 30 places: " + n); 
+ 
+  } 
+}
+
+listing 15
+// Prevent a division by zero using the ?. 
+using System; 
+ 
+class NoZeroDiv { 
+  public static void Main() { 
+    int result; 
+    int i; 
+ 
+    for(i = -5; i < 6; i++) { 
+      result = i != 0 ? 100 / i : 0; 
+      if(i != 0)  
+        Console.WriteLine("100 / " + i + " is " + result); 
+    } 
+  } 
+} 
+
+listing 16
+// Prevent a division by zero using the ?. 
+using System; 
+ 
+class NoZeroDiv2 { 
+  public static void Main() { 
+    int i; 
+ 
+    for(i = -5; i < 6; i++)  
+      if(i != 0 ? true : false)  
+        Console.WriteLine("100 / " + i + 
+                           " is " + 100 / i); 
+  } 
+}
+

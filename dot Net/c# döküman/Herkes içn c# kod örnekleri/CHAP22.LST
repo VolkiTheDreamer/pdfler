@@ -1,0 +1,587 @@
+listing 1
+// Demonstrate ArrayList. 
+ 
+using System; 
+using System.Collections; 
+ 
+class ArrayListDemo { 
+  public static void Main() { 
+    // create an array list 
+    ArrayList al = new ArrayList(); 
+     
+    Console.WriteLine("Initial capacity: " + 
+                       al.Capacity); 
+    Console.WriteLine("Initial number of elements: " + 
+                       al.Count); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Adding 6 elements"); 
+    // Add elements to the array list 
+    al.Add('C'); 
+    al.Add('A'); 
+    al.Add('E'); 
+    al.Add('B'); 
+    al.Add('D'); 
+    al.Add('F'); 
+ 
+    Console.WriteLine("Current capacity: " + 
+                       al.Capacity); 
+    Console.WriteLine("Number of elements: " + 
+                       al.Count); 
+ 
+    // Display the array list using array indexing. 
+    Console.Write("Current contents: "); 
+    for(int i=0; i < al.Count; i++) 
+      Console.Write(al[i] + " "); 
+    Console.WriteLine("\n"); 
+ 
+    Console.WriteLine("Removing 2 elements"); 
+    // Remove elements from the array list. 
+    al.Remove('F'); 
+    al.Remove('A'); 
+ 
+    Console.WriteLine("Current capacity: " + 
+                       al.Capacity); 
+    Console.WriteLine("Number of elements: " + 
+                       al.Count); 
+ 
+    // Use foreach loop to display the list. 
+    Console.Write("Contents: "); 
+    foreach(char c in al) 
+      Console.Write(c + " "); 
+    Console.WriteLine("\n"); 
+ 
+    Console.WriteLine("Adding 20 more elements"); 
+    // Add enough elements to force al to grow. 
+    for(int i=0; i < 20; i++) 
+      al.Add((char)('a' + i)); 
+    Console.WriteLine("Current capacity: " + 
+                       al.Capacity); 
+    Console.WriteLine("Number of elements after adding 20: " + 
+                       al.Count); 
+    Console.Write("Contents: "); 
+    foreach(char c in al) 
+      Console.Write(c + " "); 
+    Console.WriteLine("\n"); 
+ 
+    // Change contents using array indexing. 
+    Console.WriteLine("Change first three elements"); 
+    al[0] = 'X'; 
+    al[1] = 'Y'; 
+    al[2] = 'Z'; 
+    Console.Write("Contents: "); 
+    foreach(char c in al) 
+      Console.Write(c + " "); 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 2
+// Sort and search an ArrayList. 
+ 
+using System; 
+using System.Collections; 
+ 
+class SortSearchDemo { 
+  public static void Main() { 
+    // create an array list 
+    ArrayList al = new ArrayList(); 
+     
+    // Add elements to the array list 
+    al.Add(55); 
+    al.Add(43); 
+    al.Add(-4); 
+    al.Add(88); 
+    al.Add(3); 
+    al.Add(19); 
+ 
+    Console.Write("Original contents: "); 
+    foreach(int i in al) 
+      Console.Write(i + " "); 
+    Console.WriteLine("\n"); 
+ 
+    // Sort 
+    al.Sort(); 
+ 
+    // Use foreach loop to display the list. 
+    Console.Write("Contents after sorting: "); 
+    foreach(int i in al) 
+      Console.Write(i + " "); 
+    Console.WriteLine("\n"); 
+ 
+    Console.WriteLine("Index of 43 is " + 
+                      al.BinarySearch(43)); 
+  } 
+}
+
+listing 3
+// Convert an ArrayList into an array. 
+ 
+using System; 
+using System.Collections; 
+ 
+class ArrayListToArray { 
+  public static void Main() { 
+    ArrayList al = new ArrayList(); 
+     
+    // Add elements to the array list. 
+    al.Add(1); 
+    al.Add(2); 
+    al.Add(3); 
+    al.Add(4); 
+ 
+    Console.Write("Contents: "); 
+    foreach(int i in al) 
+      Console.Write(i + " "); 
+    Console.WriteLine(); 
+ 
+    // Get the array. 
+    int[] ia = (int[]) al.ToArray(typeof(int)); 
+    int sum = 0; 
+ 
+    // sum the array 
+    for(int i=0; i<ia.Length; i++) 
+      sum += ia[i]; 
+ 
+    Console.WriteLine("Sum is: " + sum); 
+  } 
+}
+
+listing 4
+// Demonstrate Hashtable. 
+ 
+using System; 
+using System.Collections; 
+ 
+class HashtableDemo { 
+  public static void Main() { 
+    // Create a hash table. 
+    Hashtable ht = new Hashtable(); 
+     
+    // Add elements to the table 
+    ht.Add("house", "Dwelling"); 
+    ht.Add("car", "Means of transport"); 
+    ht.Add("book", "Collection of printed words"); 
+    ht.Add("apple", "Edible fruit"); 
+ 
+    // Can also add by using the indexer. 
+    ht["tractor"] = "farm implement"; 
+ 
+    // Get a collection of the keys. 
+    ICollection c = ht.Keys; 
+ 
+    // Use the keys to obtain the values. 
+    foreach(string str in c) 
+      Console.WriteLine(str + ": " + ht[str]); 
+  } 
+}
+
+listing 5
+// Demonstrate a SortedList. 
+ 
+using System; 
+using System.Collections; 
+ 
+class SLDemo { 
+  public static void Main() { 
+    // Create a sorted SortedList. 
+    SortedList sl = new SortedList(); 
+     
+    // Add elements to the table 
+    sl.Add("house", "Dwelling"); 
+    sl.Add("car", "Means of transport"); 
+    sl.Add("book", "Collection of printed words"); 
+    sl.Add("apple", "Edible fruit"); 
+ 
+    // Can also add by using the indexer. 
+    sl["tractor"] = "farm implement"; 
+ 
+    // Get a collection of the keys. 
+    ICollection c = sl.Keys; 
+ 
+    // Use the keys to obtain the values. 
+    Console.WriteLine("Contents of list via indexer."); 
+    foreach(string str in c) 
+      Console.WriteLine(str + ": " + sl[str]); 
+ 
+    Console.WriteLine(); 
+ 
+    // Display list using integer indexes. 
+    Console.WriteLine("Contents by integer indexes."); 
+    for(int i=0; i<sl.Count; i++) 
+      Console.WriteLine(sl.GetByIndex(i)); 
+ 
+    Console.WriteLine(); 
+ 
+    // Show integer indexes of entries. 
+    Console.WriteLine("Integer indexes of entries."); 
+    foreach(string str in c) 
+      Console.WriteLine(str + ": " + sl.IndexOfKey(str)); 
+  } 
+}
+
+listing 6
+// Demonstrate the Stack class. 
+ 
+using System; 
+using System.Collections; 
+  
+class StackDemo { 
+  static void showPush(Stack st, int a) { 
+    st.Push(a); 
+    Console.WriteLine("Push(" + a + ")"); 
+ 
+    Console.Write("stack: "); 
+    foreach(int i in st) 
+      Console.Write(i + " "); 
+ 
+    Console.WriteLine();         
+  } 
+ 
+  static void showPop(Stack st) { 
+    Console.Write("Pop -> "); 
+    int a = (int) st.Pop(); 
+    Console.WriteLine(a); 
+ 
+    Console.Write("stack: "); 
+    foreach(int i in st) 
+      Console.Write(i + " "); 
+ 
+    Console.WriteLine();         
+  } 
+ 
+  public static void Main() { 
+    Stack st = new Stack(); 
+ 
+    foreach(int i in st) 
+      Console.Write(i + " "); 
+ 
+    Console.WriteLine();         
+ 
+    showPush(st, 22); 
+    showPush(st, 65); 
+    showPush(st, 91); 
+    showPop(st); 
+    showPop(st); 
+    showPop(st); 
+ 
+    try { 
+      showPop(st); 
+    } catch (InvalidOperationException) { 
+      Console.WriteLine("Stack empty."); 
+    } 
+  } 
+}
+
+listing 7
+// Demonstrate the Queue class. 
+ 
+using System; 
+using System.Collections; 
+  
+class QueueDemo { 
+  static void showEnq(Queue q, int a) { 
+    q.Enqueue(a); 
+    Console.WriteLine("Enqueue(" + a + ")"); 
+ 
+    Console.Write("queue: "); 
+    foreach(int i in q) 
+      Console.Write(i + " "); 
+ 
+    Console.WriteLine();         
+  } 
+ 
+  static void showDeq(Queue q) { 
+    Console.Write("Dequeue -> "); 
+    int a = (int) q.Dequeue(); 
+    Console.WriteLine(a); 
+ 
+    Console.Write("queue: "); 
+    foreach(int i in q) 
+      Console.Write(i + " "); 
+ 
+    Console.WriteLine();         
+  } 
+ 
+  public static void Main() { 
+    Queue q = new Queue(); 
+ 
+    foreach(int i in q) 
+      Console.Write(i + " "); 
+ 
+    Console.WriteLine();         
+ 
+    showEnq(q, 22); 
+    showEnq(q, 65); 
+    showEnq(q, 91); 
+    showDeq(q); 
+    showDeq(q); 
+    showDeq(q); 
+ 
+    try { 
+      showDeq(q); 
+    } catch (InvalidOperationException) { 
+      Console.WriteLine("Queue empty."); 
+    } 
+  } 
+}
+
+listing 8
+// Demonstrate BitArray. 
+ 
+using System; 
+using System.Collections; 
+ 
+class BADemo { 
+  public static void showbits(string rem, 
+                         BitArray bits) { 
+    Console.WriteLine(rem); 
+    for(int i=0; i < bits.Count; i++) 
+      Console.Write("{0, -6} ", bits[i]); 
+    Console.WriteLine("\n"); 
+  } 
+ 
+  public static void Main() { 
+    BitArray ba = new BitArray(8); 
+    byte[] b = { 67 }; 
+    BitArray ba2 = new BitArray(b); 
+     
+    showbits("Original contents of ba:", ba); 
+       
+    ba = ba.Not(); 
+ 
+    showbits("Contents of ba after Not:", ba); 
+ 
+    showbits("Contents of ba2:", ba2); 
+ 
+    BitArray ba3 = ba.Xor(ba2); 
+ 
+    showbits("Result of ba XOR ba2:", ba3); 
+  } 
+}
+
+listing 9
+// Demonstrate an enumerator. 
+ 
+using System; 
+using System.Collections; 
+ 
+class EnumeratorDemo {  
+  public static void Main() { 
+    ArrayList list = new ArrayList(1); 
+ 
+    for(int i=0; i < 10; i++) 
+      list.Add(i); 
+ 
+    // Use enumerator to access list. 
+    IEnumerator etr = list.GetEnumerator(); 
+    while(etr.MoveNext())  
+      Console.Write(etr.Current + " "); 
+ 
+    Console.WriteLine(); 
+ 
+    // Re–enumerate the list. 
+    etr.Reset(); 
+    while(etr.MoveNext())  
+      Console.Write(etr.Current + " "); 
+ 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 10
+// Demonstrate IDictionaryEnumerator. 
+ 
+using System; 
+using System.Collections; 
+ 
+class IDicEnumDemo { 
+  public static void Main() { 
+    // Create a hash table. 
+    Hashtable ht = new Hashtable(); 
+     
+    // Add elements to the table 
+    ht.Add("Tom", "555–3456"); 
+    ht.Add("Mary", "555–9876"); 
+    ht.Add("Todd", "555–3452"); 
+    ht.Add("Ken", "555–7756"); 
+ 
+    // Demonstrate enumerator 
+    IDictionaryEnumerator etr = ht.GetEnumerator(); 
+    Console.WriteLine("Display info using through Entry."); 
+    while(etr.MoveNext())  
+     Console.WriteLine(etr.Entry.Key + ": " +  
+                       etr.Entry.Value); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Display info using Key and Value directly."); 
+    etr.Reset(); 
+    while(etr.MoveNext())  
+     Console.WriteLine(etr.Key + ": " +  
+                       etr.Value); 
+     
+  } 
+}
+
+listing 11
+// A simple inventory example. 
+ 
+using System; 
+using System.Collections; 
+ 
+class Inventory { 
+  string name; 
+  double cost; 
+  int onhand; 
+ 
+  public Inventory(string n, double c, int h) { 
+    name = n; 
+    cost = c; 
+    onhand = h; 
+  } 
+ 
+  public override string ToString() { 
+    return 
+      String.Format("{0,-10}Cost: {1,6:C}  On hand: {2}", 
+                    name, cost, onhand); 
+  } 
+} 
+ 
+class InventoryList { 
+  public static void Main() { 
+    ArrayList inv = new ArrayList(); 
+     
+    // Add elements to the list 
+    inv.Add(new Inventory("Pliers", 5.95, 3)); 
+    inv.Add(new Inventory("Wrenches", 8.29, 2));    
+    inv.Add(new Inventory("Hammers", 3.50, 4)); 
+    inv.Add(new Inventory("Drills", 19.88, 8)); 
+ 
+    Console.WriteLine("Inventory list:"); 
+    foreach(Inventory i in inv) { 
+      Console.WriteLine("   " + i); 
+    } 
+  } 
+}
+
+listing 12
+// Implement IComparable. 
+ 
+using System; 
+using System.Collections; 
+ 
+class Inventory : IComparable { 
+  string name; 
+  double cost; 
+  int onhand; 
+ 
+  public Inventory(string n, double c, int h) { 
+    name = n; 
+    cost = c; 
+    onhand = h; 
+  } 
+ 
+  public override string ToString() { 
+    return 
+      String.Format("{0,-10}Cost: {1,6:C}  On hand: {2}", 
+                    name, cost, onhand); 
+  } 
+ 
+  // Implement the IComparable interface. 
+  public int CompareTo(object obj) { 
+    Inventory b; 
+    b = (Inventory) obj; 
+    return name.CompareTo(b.name); 
+  } 
+} 
+ 
+class IComparableDemo { 
+  public static void Main() { 
+    ArrayList inv = new ArrayList(); 
+     
+    // Add elements to the list 
+    inv.Add(new Inventory("Pliers", 5.95, 3)); 
+    inv.Add(new Inventory("Wrenches", 8.29, 2));    
+    inv.Add(new Inventory("Hammers", 3.50, 4)); 
+    inv.Add(new Inventory("Drills", 19.88, 8)); 
+ 
+    Console.WriteLine("Inventory list before sorting:"); 
+    foreach(Inventory i in inv) { 
+      Console.WriteLine("   " + i); 
+    } 
+    Console.WriteLine(); 
+ 
+    // Sort the list. 
+    inv.Sort(); 
+ 
+    Console.WriteLine("Inventory list after sorting:"); 
+    foreach(Inventory i in inv) { 
+      Console.WriteLine("   " + i); 
+    } 
+  } 
+}
+
+listing 13
+// Use IComparer. 
+ 
+using System; 
+using System.Collections; 
+ 
+// Create an IComparer for Inventory objects. 
+class CompInv : IComparer { 
+  // Implement the IComparable interface. 
+  public int Compare(object obj1, object obj2) { 
+    Inventory a, b; 
+    a = (Inventory) obj1; 
+    b = (Inventory) obj2; 
+    return a.name.CompareTo(b.name); 
+  } 
+} 
+ 
+class Inventory { 
+  public string name; 
+  double cost; 
+  int onhand; 
+ 
+  public Inventory(string n, double c, int h) { 
+    name = n; 
+    cost = c; 
+    onhand = h; 
+  } 
+ 
+  public override string ToString() { 
+    return 
+      String.Format("{0,-10}Cost: {1,6:C}  On hand: {2}", 
+                    name, cost, onhand); 
+  } 
+} 
+ 
+class MailList { 
+  public static void Main() { 
+    CompInv comp = new CompInv(); 
+    ArrayList inv = new ArrayList(); 
+     
+    // Add elements to the list 
+    inv.Add(new Inventory("Pliers", 5.95, 3)); 
+    inv.Add(new Inventory("Wrenches", 8.29, 2));    
+    inv.Add(new Inventory("Hammers", 3.50, 4)); 
+    inv.Add(new Inventory("Drills", 19.88, 8)); 
+ 
+    Console.WriteLine("Inventory list before sorting:"); 
+    foreach(Inventory i in inv) { 
+      Console.WriteLine("   " + i); 
+    } 
+    Console.WriteLine(); 
+ 
+    // Sort the list using an IComparer. 
+    inv.Sort(comp); 
+ 
+    Console.WriteLine("Inventory list after sorting:"); 
+    foreach(Inventory i in inv) { 
+      Console.WriteLine("   " + i); 
+    } 
+  } 
+}
+

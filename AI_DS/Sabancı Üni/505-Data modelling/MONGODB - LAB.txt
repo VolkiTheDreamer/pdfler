@@ -1,0 +1,210 @@
+MONGODB - LAB
+-------------
+
+
+Live - Lab
+----------
+https://docs.mongodb.com/manual/tutorial/query-documents
+
+
+// List databases
+
+show dbs 
+or
+
+show databases
+
+
+// For Help
+db.help()
+
+// CRUD (Crate, Read, Update, Delete) Operations
+
+// INSERT (insert & insertOne (new version))
+db.person.insert({_id:10001,name:"Roberto",age:30})
+
+// This command creates a collection named person if it is not present. If it is present, it simply inserts a document into the person collection.
+
+--Insert two documents in a single command:
+db.person.insert([{_id:10002, name: "Gabriel", age:40},{_id:10003, name:"Marco", age:27 }])
+
+db.person.insert({_id:10004,name:"Giula",age:33})
+db.person.insert({_id:10005,name:"Alex",age:41})
+db.person.insert({_id:10006,name:"Mark",age:21})
+db.person.insert({_id:10007,name:"Maria",age:37})
+db.person.insert({_id:10008,name:"Marco",age:37})
+
+
+// Create another collection (emp)
+db.emp.insertOne({first_name: "Donald", last_name: "OConnell", salary: 2600, department_id: 50})
+db.emp.insertOne({first_name: "Douglas", last_name: "Grant", salary: 2600, department_id:50})
+db.emp.insertOne({first_name: "Jennifer", last_name: "Whalen", salary: 4400, department_id:10})
+db.emp.insertOne({first_name: "Michael", last_name: "Hartstein", salary: 13000, department_id:20})
+db.emp.insertOne({first_name: "Pat", last_name: "Fay", salary: 6000, department_id:20})
+db.emp.insertOne({first_name: "Susan",  last_name: "Mavris", salary: 6500, department_id:40})
+db.emp.insertOne({first_name: "Hermann", last_name: "Baer",  salary: 10000, department_id:70})
+db.emp.insertOne({first_name: "Shelley", last_name: "Higgins", salary: 12008, department_id:110})
+db.emp.insertOne({first_name: "William", last_name: "Gietz", salary: 8300, department_id:110})
+db.emp.insertOne({first_name: "Steven", last_name: "King", salary: 24000, department_id:90})
+
+// Embeded Documents
+db.employee.insertMany([
+{_id:1001,name:"John",address:{previous:"123,1st Main",current:"234,2nd Main"},unit:"Hadoop"},
+{_id:1002,name:"Jack", address:{previous:"Victoria Street",current:"234,Bald Hill Street"},unit:"MongoDB"},
+{_id:1003,name:"James", address:{previous:"Victoria Street",current:"234,Hill Street"},unit:"Spark"}
+])
+
+// Query on nested(embeded) field
+db.employee.find( { "address.previous": "Victoria Street" } )
+
+db.employee.find( { address: { previous:"Victoria Street",current:"234,Bald Hill Street" }} )
+
+
+// Exclude fields
+db.employee.find( { name: "John" }, { address:0,_id:0 } )
+
+// Find, limit and sort
+db.person.find({age:{$gt:25}}).limit(3).sort({age:1})
+
+// Find Documents
+db.person.find()                                          --> select * from person;
+db.person.find({name:"Marco"})                            --> select * from person where name='Marco';
+db.person.find({age:{$gt:25}})                            --> select * from person where age>25;
+db.person.find({"age" : {$in : [21,33,42,44,46]}});       --> select * from person where age in (21,33,42,44,46);
+db.person.find({"age": { $gt: 20 }},{name: 0, _id :0});   --> select age from person where age>20;
+
+// AND Operator
+db.person.find({ name:"Marco",age:{$gt:21}})
+
+// OR Operator
+db.person.find( { $or: [ { name: "Marco" }, { age: { $eq: 37} } ] } )
+
+// LIKE Search
+db.person.find({"name": /M/})     --> like '%M%'
+db.person.find({"name": /.*a.*/}) --> like '%a%'
+db.person.find({"name": /.*k/})   --> like '%k'
+db.person.find({"name": /M.*/})   --> like 'M%'
+db.person.find({name: /^Ma/})     --> Like 'Ma%'
+db.person.find({name: /co$/})     --> like '%co'
+
+// Count Documents
+db.person.find({age:{$gt:25}}).count()
+
+// Distinct values
+db.person.distinct( "name" );
+
+
+// Example (Date Usage)
+db.workers.insertOne({id:2,name:{first: "Uğur", last:"Koç"},salary:1000,start_date: new Date('2021-11-09')})
+db.workers.insertOne({id:2,name:{first: "Ahmet", last:"Koç"},salary:1000,start_date: new Date('2021-11-09')})
+db.workers.find().pretty()
+db.workers.find({"name.last":"Koç"})
+
+
+// Document with array
+db.course.insertOne({id:1, name:"DB Design", skills:["DB Design","SQL","NoSQL"],semester:1})
+db.course.insertOne({id:1, name:"DB Fundamentals", skills:["SQL"],semester:1})
+db.course.find({skills:["SQL"]})
+
+
+// Group Functions
+db.stocks.insertMany([
+{custID:"10001",amount:500,status:"A"},
+{custID:"10001",amount:250,status:"A"},
+{custID:"10002",amount:200 ,status:"A"},
+{custID:"10001",amount: 300, status:"D"}
+]);
+
+
+// To group on custID and compute the sum of amount
+db.stocks.aggregate({$group:{_id:"$custID",TotalAmount:{$sum: "$amount"}}});
+
+// Filter with status=A
+db.stocks.aggregate({$match:{status:"A"}},{$group: {_id:"$custID",TotalAmount:{ $sum:"$amount"}}});
+
+
+// JOIN Documents
+db.orders.insert([
+   { "_id" : 1, "item" : "cpu", "price" : 12, "quantity" : 2 },
+   { "_id" : 2, "item" : "ram", "price" : 20, "quantity" : 1 },
+   { "_id" : 3  }
+]);
+
+db.inventory.insert([
+   { "_id" : 1, "sku" : "cpu", "description": "product 1", "instock" : 120 },
+   { "_id" : 2, "sku" : "mainboard", "description": "product 2", "instock" : 80 },
+   { "_id" : 3, "sku" : "usb", "description": "product 3", "instock" : 60 },
+   { "_id" : 4, "sku" : "ram", "description": "product 4", "instock" : 70 },
+   { "_id" : 5, "sku": null, "description": "Incomplete" },
+   { "_id" : 6 }
+]);
+
+// Orders collection joins the documents from orders 
+db.orders.aggregate([
+   {
+     $lookup:
+       {
+         from: "inventory",
+         localField: "item",
+         foreignField: "sku",
+         as: "inventory_docs"
+       }
+  }
+]);
+
+
+db.orders.aggregate([
+    {
+      $lookup:
+        {
+          from: "inventory",
+          pipeline: 
+          [
+            { $match: { sku: "cpu" } }
+          ],
+          as: "Summary"
+        }
+    }
+]);
+
+
+// List Collections
+show collections
+
+// Create a Collection
+db.createCollection("person")
+
+
+// DELETE
+db.person.remove( { age: { $gt: 30 } }, true );
+
+
+// DROP Database:
+db.dropDatabase()
+
+// DELETE Collection
+db.employees.drop();
+
+
+// Example of Aggregate Functions
+{ "_id": 1, "quizzes": [ 10, 6, 7 ], "labs": [ 5, 8 ], "final": 80, "midterm": 75 }
+{ "_id": 2, "quizzes": [ 9, 10 ], "labs": [ 8, 8 ], "final": 95, "midterm": 80 }
+{ "_id": 3, "quizzes": [ 4, 5, 5 ], "labs": [ 6, 5 ], "final": 78, "midterm": 70 }
+
+
+db.students.aggregate([
+   { $project: { quizAvg: { $avg: "$quizzes"}, labAvg: { $avg: "$labs" }, examAvg: { $avg: [ "$final", "$midterm" ] } } }
+])
+
+db.sales.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$item",
+           avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
+           avgQuantity: { $avg: "$quantity" }
+         }
+     }
+   ]
+)

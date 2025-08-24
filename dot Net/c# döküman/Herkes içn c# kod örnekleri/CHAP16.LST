@@ -1,0 +1,480 @@
+listing 1
+// Declare a namespace for counters. 
+ 
+namespace Counter { 
+  // A simple countdown counter. 
+  class CountDown { 
+    int val; 
+ 
+    public CountDown(int n) { 
+      val = n; 
+   } 
+ 
+    public void reset(int n) { 
+      val = n; 
+    } 
+ 
+    public int count() { 
+      if(val > 0) return val--; 
+      else return 0; 
+    } 
+  } 
+}
+
+listing 2
+// Demonstrate a namespace. 
+ 
+using System; 
+ 
+// Declare a namespace for counters. 
+namespace Counter { 
+  // A simple countdown counter. 
+  class CountDown { 
+    int val; 
+ 
+    public CountDown(int n) { val = n; } 
+ 
+    public void reset(int n) { 
+      val = n; 
+    } 
+ 
+    public int count() { 
+      if(val > 0) return val--; 
+      else return 0; 
+    } 
+  } 
+} 
+ 
+class NSDemo { 
+  public static void Main() { 
+    Counter.CountDown cd1 = new Counter.CountDown(10); 
+    int i; 
+ 
+    do { 
+      i = cd1.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+ 
+    Counter.CountDown cd2 = new Counter.CountDown(20); 
+ 
+    do { 
+      i = cd2.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+ 
+    cd2.reset(4); 
+    do { 
+      i = cd2.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+  } 
+} 
+
+
+listing 3
+// Namespaces prevent name conflicts. 
+  
+using System;  
+  
+// Declare a namespace for counters.  
+namespace Counter {  
+  // A simple countdown counter.  
+  class CountDown {  
+    int val;  
+  
+    public CountDown(int n) { 
+      val = n; 
+    }  
+  
+    public void reset(int n) {  
+      val = n;  
+    }  
+  
+    public int count() {  
+      if(val > 0) return val--;  
+      else return 0;  
+    }  
+  }  
+}  
+ 
+// Declare another namespace.  
+namespace Counter2 {  
+  /* This CountDown is in the default namespace and  
+     does not conflict with the one in Counter. */ 
+  class CountDown { 
+    public void count() { 
+      Console.WriteLine("This is count() in the " + 
+                        "Counter2 namespace."); 
+    } 
+  } 
+} 
+ 
+class NSDemo {  
+  public static void Main() {  
+    // This is CountDown in the Counter namespace. 
+    Counter.CountDown cd1 = new Counter.CountDown(10);  
+ 
+    // This is CountDown in the default namespace. 
+    Counter2.CountDown cd2 = new Counter2.CountDown(); 
+ 
+    int i;  
+  
+    do {  
+      i = cd1.count();  
+      Console.Write(i + " ");  
+    } while(i > 0);  
+    Console.WriteLine();  
+  
+    cd2.count(); 
+  }  
+}
+
+listing 4
+// Demonstrate a namespace. 
+ 
+using System; 
+ 
+// Bring Counter into view. 
+using Counter; 
+ 
+// Declare a namespace for counters. 
+namespace Counter { 
+  // A simple countdown counter. 
+  class CountDown { 
+    int val; 
+ 
+    public CountDown(int n) { 
+      val = n; 
+    } 
+ 
+    public void reset(int n) { 
+      val = n; 
+    } 
+ 
+    public int count() { 
+      if(val > 0) return val--; 
+      else return 0; 
+    } 
+  } 
+} 
+ 
+class NSDemo { 
+  public static void Main() { 
+    // now, CountDown can be used directly. 
+    CountDown cd1 = new CountDown(10); 
+    int i; 
+ 
+    do { 
+      i = cd1.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+ 
+    CountDown cd2 = new CountDown(20); 
+ 
+    do { 
+      i = cd2.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+ 
+    cd2.reset(4); 
+    do { 
+      i = cd2.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 5
+// Demonstrate a using alias. 
+ 
+using System; 
+ 
+// Create an alias for Counter.CountDown. 
+using Count = Counter.CountDown; 
+ 
+// Declare a namespace for counters. 
+namespace Counter { 
+  // A simple countdown counter. 
+  class CountDown { 
+    int val; 
+ 
+    public CountDown(int n) { 
+      val = n; 
+    } 
+ 
+    public void reset(int n) { 
+      val = n; 
+    } 
+ 
+    public int count() { 
+      if(val > 0) return val--; 
+      else return 0; 
+    } 
+  } 
+} 
+ 
+class NSDemo { 
+  public static void Main() { 
+    // Here, Count is used as a name for Counter.CountDown. 
+    Count cd1 = new Count(10); 
+    int i; 
+ 
+    do { 
+      i = cd1.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+ 
+    Count cd2 = new Count(20); 
+ 
+    do { 
+      i = cd2.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+ 
+    cd2.reset(4); 
+    do { 
+      i = cd2.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 6
+// Namespaces are additive. 
+ 
+using System; 
+ 
+// Bring Counter into view. 
+using Counter; 
+ 
+// Here is one Counter namespace. 
+namespace Counter { 
+  // A simple countdown counter. 
+  class CountDown { 
+    int val; 
+ 
+    public CountDown(int n) { 
+      val = n; 
+    } 
+ 
+    public void reset(int n) { 
+      val = n; 
+    } 
+ 
+    public int count() { 
+      if(val > 0) return val--; 
+      else return 0; 
+    } 
+  } 
+} 
+ 
+// Here is another Counter namespace. 
+namespace Counter { 
+  // A simple count-up counter. 
+  class CountUp { 
+    int val; 
+    int target; 
+ 
+    public int Target { 
+      get{ 
+        return target; 
+      } 
+    } 
+ 
+    public CountUp(int n) { 
+      target = n; 
+      val = 0; 
+    } 
+ 
+    public void reset(int n) { 
+      target = n; 
+      val = 0; 
+    } 
+ 
+    public int count() { 
+      if(val < target) return val++; 
+      else return target; 
+    } 
+  } 
+} 
+ 
+class NSDemo { 
+  public static void Main() { 
+    CountDown cd = new CountDown(10); 
+    CountUp cu = new CountUp(8); 
+    int i; 
+ 
+    do { 
+      i = cd.count(); 
+      Console.Write(i + " "); 
+    } while(i > 0); 
+    Console.WriteLine(); 
+ 
+    do { 
+      i = cu.count(); 
+      Console.Write(i + " "); 
+    } while(i < cu.Target); 
+ 
+  } 
+}
+
+listing 7
+// Namespaces can be nested. 
+ 
+using System; 
+ 
+namespace NS1 { 
+  class ClassA { 
+     public ClassA() { 
+       Console.WriteLine("constructing ClassA"); 
+    } 
+  } 
+  namespace NS2 { // a nested namespace 
+    class ClassB { 
+       public ClassB() { 
+         Console.WriteLine("constructing ClassB"); 
+      } 
+    } 
+  } 
+} 
+ 
+class NestedNSDemo { 
+  public static void Main() { 
+    NS1.ClassA a= new NS1.ClassA(); 
+ 
+ // NS2.ClassB b = new NS2.ClassB(); // Error!!! NS2 is not in view 
+ 
+    NS1.NS2.ClassB b = new NS1.NS2.ClassB(); // this is right 
+  } 
+}
+
+listing 8
+// Demonstrate #if, #endif, and #define. 
+ 
+#define EXPERIMENTAL 
+ 
+using System; 
+ 
+class Test { 
+  public static void Main() { 
+     
+    #if EXPERIMENTAL 
+      Console.WriteLine("Compiled for experimental version."); 
+    #endif 
+   
+    Console.WriteLine("This is in all versions."); 
+  } 
+}
+
+listing 9
+// Use a symbol expression. 
+ 
+#define EXPERIMENTAL 
+#define TRIAL 
+ 
+using System; 
+ 
+class Test { 
+  public static void Main() { 
+     
+    #if EXPERIMENTAL 
+      Console.WriteLine("Compiled for experimental version."); 
+    #endif 
+ 
+    #if EXPERIMENTAL && TRIAL 
+       Console.Error.WriteLine("Testing experimental trial version."); 
+    #endif 
+   
+    Console.WriteLine("This is in all versions."); 
+  } 
+}
+
+listing 10
+// Demonstrate #else. 
+ 
+#define EXPERIMENTAL 
+ 
+using System; 
+ 
+class Test { 
+  public static void Main() { 
+     
+    #if EXPERIMENTAL 
+      Console.WriteLine("Compiled for experimental version."); 
+    #else 
+      Console.WriteLine("Compiled for release."); 
+    #endif 
+ 
+    #if EXPERIMENTAL && TRIAL 
+       Console.Error.WriteLine("Testing experimental trial version."); 
+    #else 
+       Console.Error.WriteLine("Not experimental trial version."); 
+    #endif 
+   
+    Console.WriteLine("This is in all versions."); 
+  } 
+}
+
+listing 11
+// Demonstrate #elif. 
+ 
+#define RELEASE 
+ 
+using System; 
+ 
+class Test { 
+  public static void Main() { 
+     
+    #if EXPERIMENTAL 
+      Console.WriteLine("Compiled for experimental version."); 
+    #elif RELEASE 
+      Console.WriteLine("Compiled for release."); 
+    #else 
+      Console.WriteLine("Compiled for internal testing."); 
+    #endif 
+ 
+    #if TRIAL && !RELEASE 
+       Console.WriteLine("Trial version."); 
+    #endif 
+   
+    Console.WriteLine("This is in all versions."); 
+  } 
+}
+
+listing 12
+#define SMALL 
+ 
+#if SMALL 
+  // ...  
+#undef SMALL 
+// at this point SMALL is undefined.
+
+listing 13
+// Use internal. 
+ 
+using System; 
+ 
+class InternalTest { 
+  internal int x; 
+} 
+ 
+class InternalDemo { 
+  public static void Main() { 
+    InternalTest ob = new InternalTest(); 
+ 
+    ob.x = 10; // can access -- in same file 
+ 
+    Console.WriteLine("Here is ob.x: " + ob.x); 
+ 
+  } 
+}
+

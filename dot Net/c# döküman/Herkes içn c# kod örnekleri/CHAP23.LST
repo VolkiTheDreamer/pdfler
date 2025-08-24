@@ -1,0 +1,375 @@
+listing 1
+// Access the Internet. 
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class NetDemo {  
+  public static void Main() { 
+    int ch; 
+ 
+    // First, create a WebRequest to a URI. 
+    HttpWebRequest req = (HttpWebRequest) 
+           WebRequest.Create("http://www.osborne.com"); 
+ 
+    // Next, send that request and return the response. 
+    HttpWebResponse resp = (HttpWebResponse) 
+           req.GetResponse(); 
+ 
+    // From the response, obtain an input stream. 
+    Stream istrm = resp.GetResponseStream(); 
+ 
+ 
+    /* Now, read and display the html present at 
+       the specified URI.  So you can see what is 
+       being displayed, the data is shown 
+       400 characters at a time.  After each 400 
+       characters are displayed, you must press 
+       ENTER to get the next 400. */ 
+   
+    for(int i=1; ; i++) { 
+      ch =  istrm.ReadByte(); 
+      if(ch == -1) break; 
+      Console.Write((char) ch); 
+      if((i%400)==0) { 
+        Console.Write("\nPress a key."); 
+        Console.Read(); 
+      } 
+    } 
+ 
+    // Close the Response. This also closes istrm. 
+    resp.Close(); 
+  } 
+}
+
+listing 2
+// First, create a WebRequest to a URI. 
+WebRequest req =  WebRequest.Create("http://www.osborne.com"); 
+ 
+// Next, send that request and return the response. 
+WebResponse resp =  req.GetResponse();
+
+listing 3
+// Handle network exceptions. 
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class NetExcDemo {  
+  public static void Main() { 
+    int ch; 
+ 
+    try { 
+ 
+      // First, create a WebRequest to a URI. 
+      HttpWebRequest req = (HttpWebRequest) 
+             WebRequest.Create("http://www.osborne.com"); 
+ 
+      // Next, send that request and return the response. 
+      HttpWebResponse resp = (HttpWebResponse) 
+             req.GetResponse(); 
+ 
+      // From the response, obtain an input stream. 
+      Stream istrm = resp.GetResponseStream(); 
+ 
+      /* Now, read and display the html present at 
+         the specified URI.  So you can see what is 
+         being displayed, the data is shown 
+         400 characters at a time.  After each 400 
+         characters are displayed, you must press 
+         ENTER to get the next 400. */ 
+   
+      for(int i=1; ; i++) { 
+        ch =  istrm.ReadByte(); 
+        if(ch == -1) break; 
+        Console.Write((char) ch); 
+        if((i%400)==0) { 
+          Console.Write("\nPress a key."); 
+          Console.Read(); 
+        } 
+      } 
+ 
+ 
+      // Close the Response. This also closes istrm. 
+      resp.Close(); 
+ 
+    } catch(WebException exc) { 
+      Console.WriteLine("Network Error: " + exc.Message +  
+                        "\nStatus code: " + exc.Status); 
+    } catch(ProtocolViolationException exc) { 
+      Console.WriteLine("Protocol Error: " + exc.Message); 
+    } catch(UriFormatException exc) { 
+      Console.WriteLine("URI Format Error: " + exc.Message); 
+    } catch(NotSupportedException exc) { 
+      Console.WriteLine("Unknown Protocol: " + exc.Message); 
+    } catch(IOException exc) { 
+      Console.WriteLine("I/O Error: " + exc.Message); 
+    } 
+  } 
+}
+
+listing 4
+// Use Uri. 
+ 
+using System; 
+using System.Net; 
+ 
+class UriDemo {  
+  public static void Main() { 
+ 
+    Uri sample = new Uri("http://MySite.com/somefile.txt?SomeQuery"); 
+ 
+    Console.WriteLine("Host: " + sample.Host); 
+    Console.WriteLine("Port: " + sample.Port); 
+    Console.WriteLine("Scheme: " + sample.Scheme); 
+    Console.WriteLine("Local Path: " + sample.LocalPath); 
+    Console.WriteLine("Query: " + sample.Query); 
+    Console.WriteLine("Path and queury: " + sample.PathAndQuery); 
+ 
+  } 
+}
+
+listing 5
+// Examine the headers. 
+ 
+using System; 
+using System.Net; 
+ 
+class HeaderDemo {  
+  public static void Main() { 
+ 
+    // Create a WebRequest to a URI. 
+    HttpWebRequest req = (HttpWebRequest) 
+           WebRequest.Create("http://www.osborne.com"); 
+ 
+    // Send that request and return the response. 
+    HttpWebResponse resp = (HttpWebResponse) 
+           req.GetResponse(); 
+ 
+    // Obtain a list of the names. 
+    string[] names = resp.Headers.AllKeys; 
+ 
+    // Display the header name/value pairs. 
+    Console.WriteLine("{0,-20}{1}\n", "Name", "Value"); 
+    foreach(string n in names) 
+      Console.WriteLine("{0,-20}{1}", n, resp.Headers[n]); 
+ 
+    // Close the Response.  
+    resp.Close(); 
+  } 
+}
+
+listing 6
+/* Examine Cookies. 
+ 
+   To see what cookies a Web Site uses, 
+   specify its name on the command line. 
+   For example, if you call this program 
+   Cookie, then 
+  
+     Cookie http://MSN.COM 
+  
+   displays the cookies associated with MSN.COM. 
+*/ 
+ 
+using System; 
+using System.Net; 
+ 
+class CookieDemo {  
+  public static void Main(string[] args) { 
+ 
+    if(args.Length != 1) { 
+      Console.WriteLine("Usage: CookieDemo <uri>"); 
+      return ; 
+    } 
+ 
+    // Create a WebRequest to the specified URI. 
+    HttpWebRequest req = (HttpWebRequest) 
+           WebRequest.Create(args[0]);  
+ 
+    // Get an empty cookie container. 
+    req.CookieContainer = new CookieContainer(); 
+ 
+    // Send the request and return the response. 
+    HttpWebResponse resp = (HttpWebResponse) 
+           req.GetResponse(); 
+ 
+    // Display the cookies. 
+    Console.WriteLine("Number of cookies: " +  
+                        resp.Cookies.Count); 
+    Console.WriteLine("{0,-20}{1}", "Name", "Value"); 
+ 
+    for(int i=0; i < resp.Cookies.Count; i++) 
+      Console.WriteLine("{0, -20}{1}", 
+                         resp.Cookies[i].Name, 
+                         resp.Cookies[i].Value); 
+ 
+    // Close the Response.  
+    resp.Close(); 
+  } 
+}
+
+listing 7
+// Use LastModified. 
+ 
+using System; 
+using System.Net; 
+ 
+class HeaderDemo {  
+  public static void Main() { 
+ 
+    HttpWebRequest req = (HttpWebRequest) 
+           WebRequest.Create("http://www.Microsoft.com"); 
+ 
+    HttpWebResponse resp = (HttpWebResponse) 
+           req.GetResponse(); 
+ 
+    Console.WriteLine("Last modified: " + resp.LastModified); 
+ 
+    resp.Close(); 
+  } 
+}
+
+listing 8
+// MiniCrawler: A skeletal Web crawler. 
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class MiniCrawler {  
+ 
+  // Find a link in a content string. 
+  static string FindLink(string htmlstr,  
+                         ref int startloc) { 
+    int i; 
+    int start, end; 
+    string uri = null; 
+    string lowcasestr = htmlstr.ToLower(); 
+ 
+    i = lowcasestr.IndexOf("href=\"http", startloc); 
+    if(i != -1) { 
+      start = htmlstr.IndexOf('"', i) + 1; 
+      end = htmlstr.IndexOf('"', start); 
+      uri = htmlstr.Substring(start, end-start); 
+      startloc = end; 
+    } 
+             
+    return uri; 
+  } 
+ 
+  public static void Main(string[] args) { 
+    string link = null; 
+    string str; 
+    string answer; 
+ 
+    int curloc; // holds current location in response 
+ 
+    if(args.Length != 1) { 
+      Console.WriteLine("Usage: MiniCrawler <uri>"); 
+      return ; 
+    } 
+ 
+    string uristr = args[0]; // holds current URI 
+ 
+    try { 
+ 
+      do { 
+        Console.WriteLine("Linking to " + uristr); 
+ 
+        // Create a WebRequest to the specified URI. 
+        HttpWebRequest req = (HttpWebRequest) 
+               WebRequest.Create(uristr); 
+ 
+        uristr = null; // disallow further use of this URI 
+ 
+        // Send that request and return the response. 
+        HttpWebResponse resp = (HttpWebResponse) 
+               req.GetResponse(); 
+ 
+        // From the response, obtain an input stream. 
+        Stream istrm = resp.GetResponseStream(); 
+ 
+        // Wrap the input stream in a StreamReader. 
+        StreamReader rdr = new StreamReader(istrm); 
+ 
+        // Read in the entire page. 
+        str = rdr.ReadToEnd(); 
+ 
+        curloc = 0; 
+        
+        do { 
+          // Find the next URI to link to. 
+          link = FindLink(str, ref curloc); 
+ 
+          if(link != null) { 
+            Console.WriteLine("Link found: " + link); 
+ 
+            Console.Write("Link, More, Quit?"); 
+            answer = Console.ReadLine(); 
+ 
+            if(string.Compare(answer, "L", true) == 0) { 
+              uristr = string.Copy(link); 
+              break; 
+            } else if(string.Compare(answer, "Q", true) == 0) { 
+              break; 
+            } else if(string.Compare(answer, "M", true) == 0) { 
+              Console.WriteLine("Searching for another link."); 
+            } 
+          } else { 
+            Console.WriteLine("No link found."); 
+            break; 
+          } 
+ 
+        } while(link.Length > 0); 
+ 
+        // Close the Response. 
+        resp.Close(); 
+      } while(uristr != null); 
+ 
+    } catch(WebException exc) { 
+      Console.WriteLine("Network Error: " + exc.Message +  
+                        "\nStatus code: " + exc.Status); 
+    } catch(ProtocolViolationException exc) { 
+      Console.WriteLine("Protocol Error: " + exc.Message); 
+    } catch(UriFormatException exc) { 
+      Console.WriteLine("URI Format Error: " + exc.Message); 
+    } catch(NotSupportedException exc) { 
+      Console.WriteLine("Unknown Protocol: " + exc.Message); 
+    } catch(IOException exc) { 
+      Console.WriteLine("I/O Error: " + exc.Message); 
+    } 
+ 
+    Console.WriteLine("Terminating MiniCrawler."); 
+  } 
+}
+
+listing 9
+// Use WebClient to download information into a file. 
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class WebClientDemo {  
+  public static void Main() { 
+    WebClient user = new WebClient(); 
+    string uri = "http://www.osborne.com"; 
+    string fname = "data.txt"; 
+     
+    try { 
+      Console.WriteLine("Downloading data from " + 
+                        uri + " to " + fname); 
+      user.DownloadFile(uri, fname); 
+    } catch (WebException exc) { 
+      Console.WriteLine(exc); 
+    } catch (UriFormatException exc) { 
+      Console.WriteLine(exc); 
+    } 
+      
+    Console.WriteLine("Download complete."); 
+  } 
+}
+

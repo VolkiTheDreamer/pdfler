@@ -1,0 +1,564 @@
+listing 1
+// Determine if a value is positive or negative. 
+using System; 
+ 
+class PosNeg {  
+  public static void Main() { 
+    int i; 
+ 
+    for(i=-5; i <= 5; i++) { 
+      Console.Write("Testing " + i + ": "); 
+ 
+      if(i < 0) Console.WriteLine("negative"); 
+      else Console.WriteLine("positive"); 
+    } 
+ 
+  } 
+}
+
+listing 2
+// Determine if a value is positive, negative, or zero. 
+using System; 
+ 
+class PosNegZero {  
+  public static void Main() { 
+    int i; 
+ 
+    for(i=-5; i <= 5; i++) { 
+ 
+      Console.Write("Testing " + i + ": "); 
+ 
+      if(i < 0) Console.WriteLine("negative"); 
+      else if(i == 0) Console.WriteLine("no sign"); 
+        else Console.WriteLine("positive"); 
+    } 
+ 
+  } 
+}
+
+listing 3
+// Determine smallest single-digit factor. 
+using System; 
+ 
+class Ladder {    
+  public static void Main() {    
+    int num; 
+ 
+    for(num = 2; num < 12; num++) { 
+      if((num % 2) == 0) 
+        Console.WriteLine("Smallest factor of " + num + " is 2.");  
+      else if((num % 3) == 0)  
+        Console.WriteLine("Smallest factor of " + num + " is 3.");  
+      else if((num % 5) == 0) 
+        Console.WriteLine("Smallest factor of " + num + " is 5.");  
+      else if((num % 7) == 0)  
+        Console.WriteLine("Smallest factor of " + num + " is 7.");  
+      else  
+        Console.WriteLine(num + " is not divisible by 2, 3, 5, or 7.");  
+    } 
+  } 
+}
+
+listing 4
+// Demonstrate the switch. 
+ 
+using System; 
+ 
+class SwitchDemo {   
+  public static void Main() { 
+    int i; 
+ 
+    for(i=0; i<10; i++) 
+      switch(i) { 
+        case 0:  
+          Console.WriteLine("i is zero"); 
+          break; 
+        case 1:  
+          Console.WriteLine("i is one"); 
+          break; 
+        case 2:  
+          Console.WriteLine("i is two"); 
+          break; 
+        case 3:  
+          Console.WriteLine("i is three"); 
+          break; 
+        case 4:  
+          Console.WriteLine("i is four"); 
+          break; 
+        default:  
+          Console.WriteLine("i is five or more"); 
+          break; 
+      } 
+      
+  }   
+}
+
+listing 5
+// Use a char to control the switch. 
+ 
+using System; 
+ 
+class SwitchDemo2 {   
+  public static void Main() { 
+    char ch; 
+ 
+    for(ch='A'; ch<= 'E'; ch++) 
+      switch(ch) { 
+        case 'A':  
+          Console.WriteLine("ch is A"); 
+          break; 
+        case 'B':  
+          Console.WriteLine("ch is B"); 
+          break; 
+        case 'C':  
+          Console.WriteLine("ch is C"); 
+          break; 
+        case 'D':  
+          Console.WriteLine("ch is D"); 
+          break; 
+        case 'E':  
+          Console.WriteLine("ch is E"); 
+          break; 
+      }     
+  }   
+}
+
+listing 6
+// Empty cases can fall through. 
+ 
+using System; 
+ 
+class EmptyCasesCanFall {   
+  public static void Main() { 
+    int i; 
+ 
+    for(i=1; i < 5; i++)  
+      switch(i) { 
+        case 1: 
+        case 2: 
+        case 3: Console.WriteLine("i is 1, 2 or 3"); 
+          break; 
+        case 4: Console.WriteLine("i is 4"); 
+          break; 
+      } 
+ 
+  } 
+}
+
+listing 7
+// A negatively running for loop. 
+ 
+using System; 
+ 
+class DecrFor {     
+  public static void Main() {     
+    int x; 
+ 
+    for(x = 100; x > -100; x -= 5) 
+      Console.WriteLine(x); 
+  } 
+}
+
+listing 8
+/* 
+   Determine if a number is prime.  If it is not, 
+   then display its largest factor. 
+*/ 
+ 
+using System; 
+ 
+class FindPrimes {    
+  public static void Main() {    
+    int num; 
+    int i; 
+    int factor; 
+    bool isprime; 
+ 
+ 
+    for(num = 2; num < 20; num++) { 
+      isprime = true;  
+      factor = 0; 
+ 
+      // see if num is evenly divisible 
+      for(i=2; i <= num/2; i++) { 
+        if((num % i) == 0) { 
+          // num is evenly divisible -- not prime 
+          isprime = false; 
+          factor = i; 
+        } 
+      } 
+ 
+      if(isprime) 
+        Console.WriteLine(num + " is prime."); 
+      else 
+        Console.WriteLine("Largest factor of " + num + 
+                          " is " + factor); 
+    } 
+  }    
+}
+
+listing 9
+// Use commas in a for statememt.    
+ 
+using System; 
+ 
+class Comma {    
+  public static void Main() {    
+    int i, j; 
+ 
+    for(i=0, j=10; i < j; i++, j--) 
+      Console.WriteLine("i and j: " + i + " " + j); 
+  } 
+}
+
+listing 10
+/* 
+   Use commas in a for statememt to find 
+   the largest and smallest factor of a number. 
+*/ 
+ 
+using System; 
+ 
+class Comma {    
+  public static void Main() {    
+    int i, j; 
+    int smallest, largest; 
+    int num; 
+ 
+    num = 100; 
+    
+    smallest = largest = 1; 
+ 
+    for(i=2, j=num/2; (i <= num/2) & (j >= 2); i++, j--) { 
+ 
+      if((smallest == 1) & ((num % i) == 0))  
+        smallest = i; 
+ 
+      if((largest == 1) & ((num % j) == 0))  
+        largest = j; 
+ 
+    } 
+ 
+    Console.WriteLine("Largest factor: " + largest); 
+    Console.WriteLine("Smallest factor: " + smallest); 
+  } 
+}
+
+listing 11
+// Loop condition can be any bool expression. 
+using System; 
+ 
+class forDemo {    
+  public static void Main() {    
+    int i, j; 
+    bool done = false; 
+ 
+    for(i=0, j=100; !done; i++, j--) { 
+ 
+      if(i*i >= j) done = true; 
+ 
+      Console.WriteLine("i, j: " + i + " " + j); 
+    } 
+ 
+  }    
+}
+
+listing 12
+// Parts of the for can be empty. 
+ 
+using System; 
+ 
+class Empty {   
+  public static void Main() { 
+    int i; 
+ 
+    for(i = 0; i < 10; ) { 
+      Console.WriteLine("Pass #" + i); 
+      i++; // increment loop control var 
+    } 
+  }   
+}
+
+listing 13
+// Move more out of the for loop. 
+ 
+using System; 
+ 
+class Empty2 {   
+  public static void Main() { 
+    int i; 
+ 
+    i = 0; // move initialization out of loop 
+    for(; i < 10; ) { 
+      Console.WriteLine("Pass #" + i); 
+      i++; // increment loop control var 
+    } 
+  }   
+}
+
+listing 14
+// The body of a loop can be empty. 
+ 
+using System; 
+ 
+class Empty3 {   
+  public static void Main() { 
+    int i; 
+    int sum = 0; 
+ 
+    // sum the numbers through 5  
+    for(i = 1; i <= 5; sum += i++) ; 
+ 
+    Console.WriteLine("Sum is " + sum); 
+  }   
+}
+
+listing 15
+// Declare loop control variable inside the for. 
+ 
+using System; 
+ 
+class ForVar {   
+  public static void Main() { 
+    int sum = 0; 
+    int fact = 1; 
+ 
+    // compute the factorial of the numbers through 5  
+    for(int i = 1; i <= 5; i++) {  
+      sum += i;  // i is known throughout the loop 
+      fact *= i; 
+    } 
+ 
+    // but, i is not known here. 
+ 
+    Console.WriteLine("Sum is " + sum); 
+    Console.WriteLine("Factorial is " + fact); 
+  }   
+}
+
+listing 16
+// Compute the order of magnitude of an integer 
+ 
+using System; 
+ 
+class WhileDemo {   
+  public static void Main() { 
+    int num; 
+    int mag; 
+ 
+    num = 435679; 
+    mag = 0; 
+ 
+    Console.WriteLine("Number: " + num); 
+ 
+    while(num > 0) { 
+      mag++; 
+      num = num / 10; 
+    }; 
+ 
+    Console.WriteLine("Magnitude: " + mag); 
+  }   
+}
+
+listing 17
+// Compute integer powers of 2. 
+ 
+using System; 
+ 
+class Power {   
+  public static void Main() { 
+    int e; 
+    int result; 
+ 
+    for(int i=0; i < 10; i++) { 
+      result = 1; 
+      e = i; 
+ 
+      while(e > 0) { 
+        result *= 2; 
+        e--; 
+      } 
+ 
+      Console.WriteLine("2 to the " + i +  
+                         " power is " + result);        
+    } 
+  }   
+}
+
+listing 18
+// Display the digits of an integer in reverse order. 
+ 
+using System; 
+ 
+class DoWhileDemo {   
+  public static void Main() { 
+    int num; 
+    int nextdigit; 
+ 
+    num = 198; 
+ 
+    Console.WriteLine("Number: " + num); 
+ 
+    Console.Write("Number in reverse order: "); 
+ 
+    do { 
+      nextdigit = num % 10; 
+      Console.Write(nextdigit); 
+      num = num / 10; 
+    } while(num > 0); 
+ 
+    Console.WriteLine(); 
+  }   
+}
+
+listing 19
+// Using break to exit a loop.   
+ 
+using System; 
+ 
+class BreakDemo {  
+  public static void Main() {  
+ 
+    // use break to exit this loop 
+    for(int i=-10; i <= 10; i++) {  
+      if(i > 0) break; // terminate loop when i is positive 
+      Console.Write(i + " ");  
+    }  
+    Console.WriteLine("Done");  
+  }  
+}
+
+listing 20
+// Using break to exit a do-while loop.   
+ 
+using System; 
+ 
+class BreakDemo2 {  
+  public static void Main() {  
+    int i; 
+ 
+    i = -10;     
+    do { 
+      if(i > 0) break; 
+      Console.Write(i + " "); 
+      i++; 
+    } while(i <= 10); 
+  
+    Console.WriteLine("Done");  
+  }  
+}
+
+listing 21
+// Find the smallest factor of a value. 
+ 
+using System; 
+ 
+class FindSmallestFactor {  
+  public static void Main() {  
+    int factor = 1; 
+    int num = 1000; 
+      
+    for(int i=2; i < num/2; i++) {  
+      if((num%i) == 0) { 
+        factor = i; 
+        break; // stop loop when factor is found 
+      } 
+    }  
+    Console.WriteLine("Smallest factor is " + factor);  
+  }  
+}
+
+listing 22
+// Using break with nested loops.  
+ 
+using System; 
+ 
+class BreakNested {  
+  public static void Main() {  
+  
+    for(int i=0; i<3; i++) {  
+      Console.WriteLine("Outer loop count: " + i);  
+      Console.Write("    Inner loop count: "); 
+ 
+      int t = 0;             
+      while(t < 100) {  
+        if(t == 10) break; // terminate loop if t is 10  
+        Console.Write(t + " ");  
+        t++; 
+      }  
+      Console.WriteLine();  
+    }  
+    Console.WriteLine("Loops complete.");  
+  }  
+}
+
+listing 23
+// Use continue. 
+ 
+using System; 
+ 
+class ContDemo {   
+  public static void Main() { 
+    // print even numbers between 0 and 100 
+    for(int i = 0; i <= 100; i++) {  
+      if((i%2) != 0) continue; // iterate 
+      Console.WriteLine(i); 
+    } 
+  }   
+}
+
+listing 24
+// Use goto with a switch. 
+ 
+using System; 
+ 
+class SwitchGoto {   
+  public static void Main() { 
+ 
+    for(int i=1; i < 5; i++) { 
+      switch(i) { 
+        case 1: 
+          Console.WriteLine("In case 1"); 
+          goto case 3; 
+        case 2: 
+          Console.WriteLine("In case 2"); 
+          goto case 1; 
+        case 3: 
+          Console.WriteLine("In case 3"); 
+          goto default; 
+        default: 
+          Console.WriteLine("In default"); 
+          break; 
+      } 
+ 
+      Console.WriteLine(); 
+    } 
+ 
+//    goto case 1; // Error! Can't jump into a switch. 
+  } 
+}
+
+listing 25
+// Demonstrate the goto. 
+  
+using System;  
+  
+class Use_goto {     
+  public static void Main() {     
+    int i=0, j=0, k=0; 
+ 
+    for(i=0; i < 10; i++) { 
+      for(j=0; j < 10; j++ ) { 
+        for(k=0; k < 10; k++) { 
+          Console.WriteLine("i, j, k: " + i + " " + j + " " + k); 
+          if(k == 3) goto stop; 
+        } 
+      } 
+    } 
+ 
+stop: 
+    Console.WriteLine("Stopped! i, j, k: " + i + ", " + j + " " + k); 
+    
+  }  
+}
+

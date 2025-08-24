@@ -1,0 +1,573 @@
+listing 1
+// Compare strings. 
+ 
+using System; 
+ 
+class CompareDemo { 
+  public static void Main() { 
+    string str1 = "one"; 
+    string str2 = "one"; 
+    string str3 = "ONE"; 
+    string str4 = "two"; 
+    string str5 = "one, too"; 
+ 
+ 
+    if(String.Compare(str1, str2) == 0) 
+      Console.WriteLine(str1 + " and " + str2 + 
+                        " are equal."); 
+    else 
+      Console.WriteLine(str1 + " and " + str2 + 
+                        " are not equal."); 
+ 
+ 
+    if(String.Compare(str1, str3) == 0) 
+      Console.WriteLine(str1 + " and " + str3 + 
+                        " are equal."); 
+    else 
+      Console.WriteLine(str1 + " and " + str3 + 
+                        " are not equal."); 
+ 
+    if(String.Compare(str1, str3, true) == 0) 
+      Console.WriteLine(str1 + " and " + str3 + 
+                        " are equal ignoring case."); 
+    else 
+      Console.WriteLine(str1 + " and " + str3 + 
+                        " are not equal ignoring case."); 
+ 
+     if(String.Compare(str1, str5) == 0) 
+      Console.WriteLine(str1 + " and " + str5 + 
+                        " are equal."); 
+    else 
+      Console.WriteLine(str1 + " and " + str5 + 
+                        " are not equal."); 
+  
+    if(String.Compare(str1, 0, str5, 0, 3) == 0) 
+      Console.WriteLine("First part of " + str1 + " and " + 
+                        str5 + " are equal."); 
+    else 
+      Console.WriteLine("First part of " + str1 + " and " + 
+                        str5 + " are not equal."); 
+ 
+    int result = String.Compare(str1, str4); 
+    if(result < 0) 
+      Console.WriteLine(str1 + " is less than " + str4); 
+    else if(result > 0) 
+      Console.WriteLine(str1 + " is greater than " + str4); 
+    else 
+      Console.WriteLine(str1 + " equals " + str4); 
+  } 
+}
+
+listing 2
+// Demonstrate Concat(). 
+ 
+using System; 
+ 
+class ConcatDemo { 
+  public static void Main() { 
+ 
+    string result = String.Concat("This ", "is ", "a ", 
+                                  "test ", "of ", "the ", 
+                                  "String ", "class."); 
+ 
+    Console.WriteLine("result: " + result); 
+ 
+  } 
+}
+
+listing 3
+// Demonstrate Concat(). 
+ 
+using System; 
+ 
+class ConcatDemo { 
+  public static void Main() { 
+ 
+    string result = String.Concat("hi ", 10, " ", 
+                                   20.0, " ", 
+                                   false, " ", 
+                                   23.45M); 
+ 
+    Console.WriteLine("result: " + result); 
+  } 
+}
+
+listing 4
+// Search strings. 
+ 
+using System; 
+ 
+class StringSearchDemo { 
+  public static void Main() { 
+    string str = "C# has powerful string handling."; 
+    int idx; 
+ 
+    Console.WriteLine("str: " + str); 
+ 
+    idx = str.IndexOf('h'); 
+    Console.WriteLine("Index of first 'h': " + idx); 
+ 
+    idx = str.LastIndexOf('h'); 
+    Console.WriteLine("Index of last 'h': " + idx); 
+ 
+    idx = str.IndexOf("ing"); 
+    Console.WriteLine("Index of first \"ing\": " + idx); 
+ 
+    idx = str.LastIndexOf("ing"); 
+    Console.WriteLine("Index of last \"ing\": " + idx); 
+ 
+    char[] chrs = { 'a', 'b', 'c' }; 
+    idx = str.IndexOfAny(chrs); 
+    Console.WriteLine("Index of first 'a', 'b', or 'c': " + idx); 
+ 
+    if(str.StartsWith("C# has")) 
+      Console.WriteLine("str begins with \"C# has\""); 
+ 
+    if(str.EndsWith("ling.")) 
+      Console.WriteLine("str ends with \"ling.\""); 
+  } 
+}
+
+listing 5
+// Split and join strings. 
+ 
+using System; 
+ 
+class SplitAndJoinDemo { 
+  public static void Main() { 
+    string str = "One if by land, two if by sea."; 
+    char[] seps = {' ', '.', ',' }; 
+ 
+    // Split the string into parts. 
+    string[] parts = str.Split(seps); 
+    Console.WriteLine("Pieces from split: "); 
+    for(int i=0; i < parts.Length; i++) 
+      Console.WriteLine(parts[i]); 
+    
+    // Now, join the parts. 
+    string whole = String.Join(" | ", parts); 
+    Console.WriteLine("Result of join: "); 
+    Console.WriteLine(whole); 
+  } 
+}
+
+listing 6
+// Tokenize strings. 
+ 
+using System; 
+ 
+class TokenizeDemo { 
+  public static void Main() { 
+    string[] input = { 
+                      "100 + 19", 
+                      "100 / 3.3", 
+                      "-3 * 9", 
+                      "100 - 87" 
+                     }; 
+    char[] seps = {' '}; 
+ 
+    for(int i=0; i < input.Length; i++) { 
+      // split string into parts 
+      string[] parts = input[i].Split(seps); 
+      Console.Write("Command: "); 
+      for(int j=0; j < parts.Length; j++) 
+        Console.Write(parts[j] + " "); 
+    
+      Console.Write(", Result: "); 
+      double n = Double.Parse(parts[0]); 
+      double n2 = Double.Parse(parts[2]); 
+ 
+      switch(parts[1]) { 
+        case "+": 
+          Console.WriteLine(n + n2); 
+          break; 
+        case "-": 
+          Console.WriteLine(n - n2); 
+          break; 
+        case "*": 
+          Console.WriteLine(n * n2); 
+          break; 
+        case "/": 
+          Console.WriteLine(n / n2); 
+          break; 
+      } 
+    } 
+  } 
+}
+
+listing 7
+// Trimming and padding. 
+  
+using System;  
+  
+class TrimPadDemo {  
+  public static void Main() {  
+    string str = "test"; 
+ 
+    Console.WriteLine("Original string: " + str); 
+     
+    // Pad on left with spaces. 
+    str = str.PadLeft(10); 
+    Console.WriteLine("|" + str + "|"); 
+ 
+    // Pad on right with spaces. 
+    str = str.PadRight(20); 
+    Console.WriteLine("|" + str + "|"); 
+ 
+    // Trim spaces. 
+    str = str.Trim(); 
+    Console.WriteLine("|" + str + "|"); 
+ 
+    // Pad on left with #s. 
+    str = str.PadLeft(10, '#'); 
+    Console.WriteLine("|" + str + "|"); 
+ 
+    // Pad on right with #s. 
+    str = str.PadRight(20, '#'); 
+    Console.WriteLine("|" + str + "|"); 
+ 
+    // Trim #s. 
+    str = str.Trim('#'); 
+    Console.WriteLine("|" + str + "|"); 
+  } 
+}
+
+listing 8
+// Inserting, replacing, and removing. 
+  
+using System;  
+  
+class InsRepRevDemo {  
+  public static void Main() {  
+    string str = "This test"; 
+ 
+    Console.WriteLine("Original string: " + str); 
+     
+    // Insert 
+    str = str.Insert(5, "is a "); 
+    Console.WriteLine(str); 
+ 
+    // Replace string 
+    str = str.Replace("is", "was"); 
+    Console.WriteLine(str); 
+ 
+    // Replace characters 
+    str = str.Replace('a', 'X'); 
+    Console.WriteLine(str); 
+ 
+    // Remove 
+    str = str.Remove(4, 5); 
+    Console.WriteLine(str); 
+  } 
+}
+
+listing 9
+// Use Substring(). 
+  
+using System;  
+  
+class SubstringDemo {  
+  public static void Main() {  
+    string str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+ 
+    Console.WriteLine("str: " + str); 
+     
+    Console.Write("str.Substring(15): "); 
+    string substr = str.Substring(15); 
+    Console.WriteLine(substr); 
+ 
+    Console.Write("str.Substring(0, 15): "); 
+    substr = str.Substring(0, 15); 
+    Console.WriteLine(substr); 
+  } 
+}
+
+listing 10
+// Demonstrate various format specifiers. 
+  
+using System;  
+  
+class FormatDemo {  
+  public static void Main() {  
+    double v = 17688.65849;  
+    double v2 = 0.15;  
+    int x = 21;  
+   
+    Console.WriteLine("{0:F2}", v);  
+  
+    Console.WriteLine("{0:N5}", v);  
+  
+    Console.WriteLine("{0:e}", v);  
+  
+    Console.WriteLine("{0:r}", v);  
+  
+    Console.WriteLine("{0:p}", v2);  
+  
+    Console.WriteLine("{0:X}", x);  
+  
+    Console.WriteLine("{0:D12}", x);  
+ 
+    Console.WriteLine("{0:C}", 189.99);  
+  }  
+} 
+
+
+listing 11
+// Use String.Format() to format a value.  
+  
+using System;  
+  
+class FormatDemo {  
+  public static void Main() {  
+    double v = 17688.65849;  
+    double v2 = 0.15;  
+    int x = 21;  
+   
+    string str = String.Format("{0:F2}", v);  
+    Console.WriteLine(str);  
+  
+    str = String.Format("{0:N5}", v);  
+    Console.WriteLine(str);  
+  
+    str = String.Format("{0:e}", v);  
+    Console.WriteLine(str);  
+  
+    str = String.Format("{0:r}", v);  
+    Console.WriteLine(str);  
+  
+    str = String.Format("{0:p}", v2);  
+    Console.WriteLine(str);  
+  
+    str = String.Format("{0:X}", x);  
+    Console.WriteLine(str);  
+  
+    str = String.Format("{0:D12}", x);  
+    Console.WriteLine(str);  
+ 
+    str = String.Format("{0:C}", 189.99); 
+    Console.WriteLine(str); 
+  }  
+}
+
+listing 12
+// A closer look at Format(). 
+  
+using System;  
+  
+class FormatDemo2 {  
+  public static void Main() {  
+    int i; 
+    int sum = 0; 
+    int prod = 1; 
+    string str; 
+ 
+    /* Display the running sum and product 
+       for the numbers 1 through 10. */ 
+    for(i=1; i <= 10; i++) { 
+      sum += i; 
+      prod *= i; 
+      str = String.Format("Sum:{0,3:D}  Product:{1,8:D}", 
+                          sum, prod); 
+      Console.WriteLine(str); 
+    } 
+  } 
+}
+
+listing 13
+// Use ToString() to format values. 
+ 
+using System; 
+ 
+class ToStringDemo { 
+  public static void Main() { 
+    double v = 17688.65849; 
+    double v2 = 0.15; 
+    int x = 21; 
+  
+    string str = v.ToString("F2"); 
+    Console.WriteLine(str); 
+ 
+    str = v.ToString("N5"); 
+    Console.WriteLine(str); 
+ 
+    str = v.ToString("e"); 
+    Console.WriteLine(str); 
+ 
+    str = v.ToString("r"); 
+    Console.WriteLine(str); 
+ 
+    str = v2.ToString("p"); 
+    Console.WriteLine(str); 
+ 
+    str = x.ToString("X"); 
+    Console.WriteLine(str); 
+ 
+    str = x.ToString("D12"); 
+    Console.WriteLine(str); 
+ 
+    str = 189.99.ToString("C"); 
+    Console.WriteLine(str); 
+  } 
+}
+
+listing 14
+// Using custom formats. 
+  
+using System;  
+  
+class PictureFormatDemo {  
+  public static void Main() {  
+    double num = 64354.2345; 
+ 
+    Console.WriteLine("Default format: " + num); 
+ 
+    // Display with 2 decimal places. 
+    Console.WriteLine("Value with two decimal places: " + 
+                      "{0:#.##}", num); 
+ 
+    // Display with commas and 2 decimal places. 
+    Console.WriteLine("Add commas: {0:#,###.##}", num); 
+  
+    // Display using scientific notation. 
+    Console.WriteLine("Use scientific notation: " + 
+                      "{0:#.###e+00}", num); 
+ 
+    // Scale the value by 1000. 
+    Console.WriteLine("Value in 1,000s: " + 
+                      "{0:#0,}", num); 
+ 
+    /* Display positive, negative, and zero 
+       values differently. */ 
+    Console.WriteLine("Display positive, negative, " + 
+                      "and zero values differently."); 
+    Console.WriteLine("{0:#.#;(#.##);0.00}", num); 
+    num = -num; 
+    Console.WriteLine("{0:#.##;(#.##);0.00}", num); 
+    num = 0.0; 
+    Console.WriteLine("{0:#.##;(#.##);0.00}", num); 
+ 
+    // Display a percentage. 
+    num = 0.17;     
+    Console.WriteLine("Display a pecentage: {0:#%}", num); 
+  } 
+}
+
+listing 15
+// Format time and date information. 
+  
+using System;  
+  
+class TimeAndDateFormatDemo {  
+  public static void Main() {  
+    DateTime dt = DateTime.Now; // obtain current time 
+ 
+    Console.WriteLine("d format: {0:d}", dt); 
+    Console.WriteLine("D format: {0:D}", dt); 
+ 
+    Console.WriteLine("t format: {0:t}", dt); 
+    Console.WriteLine("T format: {0:T}", dt); 
+ 
+    Console.WriteLine("f format: {0:f}", dt); 
+    Console.WriteLine("F format: {0:F}", dt); 
+ 
+    Console.WriteLine("g format: {0:g}", dt); 
+    Console.WriteLine("G format: {0:G}", dt); 
+ 
+    Console.WriteLine("m format: {0:m}", dt); 
+    Console.WriteLine("M format: {0:M}", dt); 
+ 
+    Console.WriteLine("r format: {0:r}", dt); 
+    Console.WriteLine("R format: {0:R}", dt); 
+ 
+    Console.WriteLine("s format: {0:s}", dt); 
+ 
+    Console.WriteLine("u format: {0:u}", dt); 
+    Console.WriteLine("U format: {0:U}", dt); 
+ 
+    Console.WriteLine("y format: {0:y}", dt); 
+    Console.WriteLine("Y format: {0:Y}", dt); 
+  } 
+}
+
+listing 16
+// A simple clock. 
+  
+using System;  
+  
+class SimpleClock {  
+  public static void Main() {  
+    string t; 
+    int seconds; 
+ 
+    DateTime dt = DateTime.Now; 
+    seconds = dt.Second; 
+ 
+    for(;;) { 
+      dt = DateTime.Now; 
+ 
+      // update time if seconds change 
+      if(seconds != dt.Second) { 
+        seconds = dt.Second; 
+ 
+        t = dt.ToString("T"); 
+ 
+        if(dt.Minute==0 && dt.Second==0)  
+          t = t + "\a"; // ring bell at top of hour 
+ 
+        Console.WriteLine(t); 
+      } 
+    } 
+  } 
+}
+
+listing 17
+// Format time and date information. 
+  
+using System;  
+  
+class CustomTimeAndDateFormatsDemo {  
+  public static void Main() {  
+    DateTime dt = DateTime.Now; 
+ 
+    Console.WriteLine("Time is {0:hh:mm tt}", dt); 
+    Console.WriteLine("24 hour time is {0:hh:mm}", dt); 
+    Console.WriteLine("Date is {0:ddd MMM dd, yyyy}", dt); 
+ 
+    Console.WriteLine("Era: {0:gg}", dt); 
+ 
+    Console.WriteLine("Time with seconds: " + 
+                      "{0:HH:mm:ss tt}", dt); 
+ 
+    Console.WriteLine("Use m for day of month: {0:m}", dt); 
+    Console.WriteLine("use m for minutes: {0:%m}", dt); 
+  } 
+}
+
+listing 18
+// Format an enumeration. 
+ 
+using System; 
+ 
+class EnumFmtDemo { 
+  enum Direction { North, South, East, West } 
+  [Flags] enum Status { Ready=0x1, OffLine=0x2,  
+                        Waiting=0x4, TransmitOK=0x8, 
+                        RecieveOK=0x10, OnLine=0x20 } 
+ 
+  public static void Main() { 
+    Direction d = Direction.West; 
+ 
+    Console.WriteLine("{0:G}", d); 
+    Console.WriteLine("{0:F}", d); 
+    Console.WriteLine("{0:D}", d); 
+    Console.WriteLine("{0:X}", d); 
+     
+    Status s = Status.Ready | Status.TransmitOK; 
+ 
+    Console.WriteLine("{0:G}", s); 
+    Console.WriteLine("{0:F}", s); 
+    Console.WriteLine("{0:D}", s); 
+    Console.WriteLine("{0:X}", s); 
+  } 
+}
+

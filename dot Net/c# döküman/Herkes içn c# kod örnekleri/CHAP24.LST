@@ -1,0 +1,240 @@
+listing 1
+// A simple Cipher component.  Call this file CipherLib.cs. 
+ 
+using System.ComponentModel; 
+ 
+namespace CipherLib { // put component in its own namespace 
+ 
+  // Notice that CipherComp inherits Component. 
+  public class CipherComp : Component {  
+ 
+    // Encode a string. 
+    public string Encode(string msg) { 
+      string temp = ""; 
+ 
+      for(int i=0; i < msg.Length; i++) 
+        temp += (char) (msg[i] + 1); 
+ 
+      return temp; 
+    } 
+ 
+    // Decode a string. 
+    public string Decode(string msg) { 
+      string temp = ""; 
+ 
+      for(int i=0; i < msg.Length; i++) 
+        temp += (char) (msg[i] - 1); 
+ 
+ 
+      return temp; 
+    } 
+  } 
+}
+
+listing 2
+// A client that uses CipherComp. 
+ 
+using System; 
+using CipherLib; // import CipherComp's namespace 
+ 
+class CipherCompClient { 
+  public static void Main() { 
+    CipherComp cc = new CipherComp(); 
+ 
+    string text = "This is a test"; 
+ 
+    string ciphertext = cc.Encode(text); 
+    Console.WriteLine(ciphertext); 
+ 
+    string plaintext = cc.Decode(ciphertext); 
+    Console.WriteLine(plaintext); 
+ 
+    cc.Dispose(); // free resources 
+  } 
+}
+
+listing 3
+// An enhanced cipher component that maintains a log file.  
+  
+using System;  
+using System.ComponentModel;  
+using System.IO;  
+  
+namespace CipherLib {  
+  
+  // An Cipher component that maintains a log file. 
+  public class CipherComp : Component {   
+    static int useID = 0; 
+    int id; // instance id 
+    bool isDisposed; // true if component is disposed.  
+    FileStream log; 
+  
+    // Constructor  
+    public CipherComp() {  
+      isDisposed = false; // component not disposed  
+      try {  
+        log = new FileStream("CipherLog" + useID, FileMode.Create);  
+        id = useID; 
+        useID++; 
+      } catch (FileNotFoundException exc) {  
+        Console.WriteLine(exc);  
+        log = null; 
+      }  
+    }  
+ 
+    // Destructor  
+    ~CipherComp() {  
+       Console.WriteLine("Destructor for component " 
+                         + id); 
+       Dispose(false);  
+    }  
+  
+    // Encode the file. Return and store result. 
+    public string Encode(string msg) {  
+  
+      string temp = "";  
+  
+      for(int i=0;i < msg.Length; i++)   
+        temp += (char) (msg[i] + 1);          
+  
+      // Store in log file.  
+      for(int i=0; i < temp.Length; i++)  
+        log.WriteByte((byte) temp[i]);  
+  
+      return temp; 
+    }  
+  
+    // Decode the message. Return and store result.  
+    public string Decode(string msg) {  
+  
+      string temp = "";  
+  
+      for(int i=0; i < msg.Length; i++)  
+        temp += (char) (msg[i] - 1);  
+  
+      // Store in log file.  
+      for(int i=0; i < temp.Length; i++)  
+        log.WriteByte((byte) temp[i]);  
+ 
+      return temp; 
+    }  
+  
+    protected override void Dispose(bool dispAll) {  
+      Console.WriteLine("Dispose(" + dispAll + 
+                        ") for component " + id); 
+ 
+      if(!isDisposed) {  
+        if(dispAll) {  
+          Console.WriteLine("Closing file for " + 
+                            "component " + id); 
+          log.Close(); // close encoded file  
+          isDisposed = true;  
+        }  
+        // no unmanaged resources to release  
+        base.Dispose(dispAll);  
+      }  
+    }  
+  }  
+}
+
+listing 4
+// Another client that uses CipherComp.  
+  
+using System;  
+using CipherLib; // import CipherComp's namespace  
+  
+class CipherCompClient {  
+  public static void Main() {  
+    CipherComp cc = new CipherComp();  
+  
+    string text = "Testing";  
+  
+    string ciphertext = cc.Encode(text);  
+    Console.WriteLine(ciphertext);  
+  
+    string plaintext = cc.Decode(ciphertext);  
+    Console.WriteLine(plaintext);  
+ 
+    text = "Components are powerful."; 
+ 
+    ciphertext = cc.Encode(text);  
+    Console.WriteLine(ciphertext);  
+  
+    plaintext = cc.Decode(ciphertext);  
+    Console.WriteLine(plaintext);  
+  
+    cc.Dispose(); // free resources  
+  }  
+}
+
+listing 5
+// Employ the using statement. 
+  
+using System;  
+using CipherLib; // import CipherComp's namespace  
+  
+class CipherCompClient {  
+  public static void Main() {  
+ 
+    // cc will be disposed when this block ends. 
+    using(CipherComp cc = new CipherComp()) { 
+  
+      string text = "The using statement.";  
+  
+      string ciphertext = cc.Encode(text);  
+      Console.WriteLine(ciphertext);  
+  
+      string plaintext = cc.Decode(ciphertext);  
+      Console.WriteLine(plaintext);  
+    } 
+ 
+  }  
+}
+
+listing 6
+// Demonstrate a component container.  
+  
+using System;  
+using System.ComponentModel;  
+using CipherLib; // import CipherComp's namespace  
+  
+class UseContainer {  
+  public static void Main(string[] args) {  
+    string str = "Using containers."; 
+    Container cont = new Container();  
+     
+    CipherComp cc = new CipherComp();  
+    CipherComp cc2 = new CipherComp();  
+  
+    cont.Add(cc);  
+    cont.Add(cc2, "Second Component");  
+  
+    Console.WriteLine("First message: " +  str);  
+    str = cc.Encode(str);  
+    Console.WriteLine("First message encoded: " +  
+                      str);  
+ 
+    str = cc.Decode(str);  
+    Console.WriteLine("First message decoded: " +  
+                      str);  
+  
+    str = "one, two, three";  
+    Console.WriteLine("Second message: " +  str);  
+  
+    str = cc2.Encode(str);  
+    Console.WriteLine("Second message encoded: " +  
+                      str);  
+  
+    str = cc2.Decode(str);  
+    Console.WriteLine("Second message decoded: " +  
+                      str);  
+  
+    Console.WriteLine("\ncc2's name: " + cc2.Site.Name);  
+  
+    Console.WriteLine(); 
+ 
+    // Release both components.  
+    cont.Dispose();  
+  }  
+}
+
