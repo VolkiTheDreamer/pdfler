@@ -1,1 +1,1 @@
-selam
+Çeşitli konularda pdf kaynakları içerir.
